@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:spatie/icalendar-generator
+NAME:La Fraternité
+X-WR-CALNAME:La Fraternité
+BEGIN:VEVENT
+UID:668d48ac71e0b
+DTSTAMP:20240709T142652Z
+SUMMARY:tache 1
+DESCRIPTION:
+LOCATION:rue de la Fohalle 1\, 4970 Francorchamps\, Belgium
+ORGANIZER;CN=La Fraternité:MAILTO:from@example.com
+ATTENDEE;CN=Test:MAILTO:Bikers@gghf.be
+IMAGE;VALUE=URI;FMTTYPE=text/svg+xml;DISPLAY=BADGE:https://events.sallelafr
+ aternite.be/img/fraternite.svg
+DTSTART:20240725T151800
+DTEND:20240725T151800
+END:VEVENT
+END:VCALENDAR

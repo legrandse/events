@@ -1,0 +1,58 @@
+.responsive {
+  width: 20%;
+  height: auto;
+}
+
+._16fq9mb::before {
+  content: "" !important;
+  display: block !important;
+  width: 40% !important;
+  height: 1px !important;
+  background-color: rgb(221, 221, 221) !important;
+  margin-right: 16px !important;
+}
+._16fq9mb::after {
+  content: "" !important;
+  display: block !important;
+  width: 40% !important;
+  height: 1px !important;
+  background-color: rgb(221, 221, 221) !important;
+  margin-left: 16px !important;
+}
+
+.icon-fraternite {
+    background-image: url("/img/fraternite.svg") ;
+    background-repeat: no-repeat;
+    background-size: cover; /* stretch the background to cover the whole element */
+
+    /* 
+       still inline, but has block features
+       meaning height and width can be set
+    */
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+
+/* toggle container */
+.card-checkbox.custom-control-input:not(:checked) ~ .custom-control-label::before {
+  background-color: blue; /* Change the background color of the toggle container  when it is not checked */
+  border-color: yellow; /* Change the border color of the toggle container when it is not checked */
+}
+
+.card-checkbox.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: red; /* Change the color of the toggle container when it is checked */
+    border-color: green; /* Change the border color of the toggle container when it is checked */
+}
+
+/* toggle knob */
+.card-checkbox.checkbox-outside-card.custom-control-input:not(:checked) ~ .custom-control-label::after {
+  background-color: #fff; /* Change the background color of the knob when it is checked */
+  border: 2px solid purple; /* Add a border if you prefer */
+}
+
+.card-checkbox.checkbox-outside-card.custom-control-input:checked ~ .custom-control-label::after {
+  background-color: pink; /* Change the background color of the knob when it is checked */
+  border: 2px solid violet; /* Add a border if you prefer */
+}
