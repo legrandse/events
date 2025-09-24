@@ -27,11 +27,11 @@ class SMSController extends Controller
 	*/
     public function sendSmsNotification()
     {
-       $basic  = new Basic(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
+       $basic  = new Basic(config('sms.vonage.api_key'), config('sms.vonage.api_secret'));
         $client = new Client($basic);
 
         $response = $client->sms()->send(
-			    new \Vonage\SMS\Message\SMS($this->phone, env('VONAGE_FROM'), $this->text)
+			    new \Vonage\SMS\Message\SMS($this->phone, config('sms.vonage.from'), $this->text)
 			);
 
 			$message = $response->current();

@@ -37,7 +37,7 @@
 			       @endfor
 			        id="heading">
 			            <div class="col lg-12 d-flex flex-row align-items-center justify-content-between">
-				            <button  class="accordion-button collapsed @hasrole('Admin|Comité|Bénévole') 
+				            <button  class="accordion-button collapsed @can('event-list') 
 				                        		@if( array_key_exists($event->id, $missingShift)) 
 				                        			@if( !in_array(0 || null ,$missingShift[$event->id]))  alert alert-success @endif
 				                        		@endif   
@@ -47,7 +47,7 @@
 				                        		@endif
 				                        	
 				                        		
-				                        	@endhasrole" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$event->id}}" 
+				                        	@endcan" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$event->id}}" 
 			            		aria-expanded="false" 
 			            		aria-controls="collapse{{$event->id}}">
 			            		@can('event-edit')
@@ -55,7 +55,9 @@
 			            		<a href="{{ route('events.edit',['event'=>$event->id]) }}" class="btn btn-light "><i class="fas fa-cogs" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ __('Edit event') }}"></i></a>&nbsp;
 			            		
 			            		<!-- Shift submit button -->
-								<a class="btn btn-warning" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sendingShiftModal{{ $event->id }}" @if($event->submited > 0 || !array_key_exists($event->id, $missingShift)  ) hidden @endif><i class="fas fa-paper-plane " data-bs-toggle="tooltip" data-bs-placement="right"	data-bs-title="{{__('Sending shift')}}">&nbsp;</i></a>&nbsp;&nbsp;   	
+								<a class="btn btn-warning openModalBtn" data-modal-id="sendingShiftModal{{ $event->id }}" data-bs-target="#sendingShiftModal{{ $event->id }}" @if($event->submited > 0 || !array_key_exists($event->id, $missingShift)) hidden @endif>
+  <i class="fas fa-paper-plane" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{__('Sending shift')}}"></i>
+</a>&nbsp;&nbsp;   	
 			            		@endcan
 			            		<strong>{{ date('d/m/Y',strtotime($event->start))  }}</strong>:&nbsp;  <span class="text-capitalize">{{$event->name}}</span>
 			            		
@@ -86,7 +88,7 @@
 				                    <h2 class="accordion-header " id="task{{$task->id}}Three">
 				                    
 				                        <button class="accordion-button collapsed 
-				                        	@hasrole('Admin|Comité') 
+				                        	@can('task-create') 
 				                        		@if( array_key_exists($task->id, $a)) 
 				                        			@if( !in_array(0 || null ,$a[$task->id]))  alert alert-success @endif
 				                        		@endif   
@@ -96,7 +98,7 @@
 				                        		@endif
 				                        	
 				                        		
-				                        	@endhasrole " type="button" data-bs-toggle="collapse" 
+				                        	@endcan " type="button" data-bs-toggle="collapse" 
 					                        data-bs-target="#e{{ $task->id }}Three" 
 					                        aria-expanded="false" 
 					                        aria-controls="e{{ $task->id }}Three"> 
@@ -240,10 +242,11 @@
 								
 								@endif <!-- task -->
 				                @endforeach <!-- task -->
+				                
 				                @hasanyrole('Comité|Admin')
 								<!-- Modal confirm sending shift -->
 					
-								<div class="modal fade" id="sendingShiftModal{{ $event->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal fade" id="sendingShiftModal{{ $event->id }}" data-bs-backdrop="false"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 								  <div class="modal-dialog">
 								    <div class="modal-content">
 								      <div class="modal-header">
@@ -306,12 +309,12 @@
 	
 </script>
 
-<script>
+<!--<script>
 function taskConfirm() {
   confirm( 'Veuillez svp confirmer votre participation à la tâche.' );
 }
 </script>
-	
+-->
 <script>
 	// Obtenir la partie de l'URL après le signe #
 const hash = window.location.hash;

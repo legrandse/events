@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ 'events' . config('app.name', 'Laravel') }}</title>
 	 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -15,12 +15,10 @@
      <link rel="stylesheet" href="{{ asset('jquery-ui/jquery-ui.css') }}">   
      <!-- Hierarchy Select CSS -->
 	
-
-
-        
+	<link rel="stylesheet" href="{{asset('assets/css/templatemo-chain-app-dev.css')}}">   
     
     
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">-->
 	<link href="{{ asset('time-picker/dist/css/timepicker.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
 	@livewireStyles
@@ -31,13 +29,14 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
      <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script> 
     
-
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<!--
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>-->
 	<script src="{{ asset('time-picker/dist/js/timepicker.js') }}"></script>
 	 <!-- Hierarchy Select Js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.2/Chart.js"></script>
    	<script src="https://kit.fontawesome.com/ad6bf95f69.js" crossorigin="anonymous"></script>
  	<script src="{{ asset('js/dselect.js')}}"></script>
+ 	@vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body class="bg-primary bg-gradient">
     <div id="app">
@@ -138,17 +137,7 @@
     </div>
 </body>
 
-<script>
-	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-	return new bootstrap.Tooltip(tooltipTriggerEl)
-	})
 
-</script>
-<script>
-	const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-	const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
-</script>
 
 @livewireScripts
 @stack('script')

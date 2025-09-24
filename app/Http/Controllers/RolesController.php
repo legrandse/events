@@ -59,7 +59,8 @@ class RolesController extends Controller
 			 ]);
 			//dd($data);
     		$role = Role::create(['name' => $data['name']]);
-	        $role->syncPermissions($data['permission']);
+    		$permission = collect($data['permission'])->map(fn($val)=>(int)$val);
+	        $role->syncPermissions($permission);
 
     		return redirect()->route('roles.index')
 		            ->with('success','Role created successfully');
@@ -107,8 +108,8 @@ class RolesController extends Controller
         //$role = Role::find($id);
       //  $role->name = $request->input('name');
         $role->update($data);
-
-        $role->syncPermissions($data['permission']);
+		$permission = collect($data['permission'])->map(fn($val)=>(int)$val);
+        $role->syncPermissions($permission);
 
         return redirect()->route('roles.index')
                         ->with('success','Role updated successfully');

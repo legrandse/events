@@ -34,7 +34,7 @@ class ICALController extends Controller
     	
 		
 		//dd($vEvents);
-		Calendar::create(env('APP_NAME'))
+		Calendar::create(config('app.name'))
 		->event($vEvents)->get();
 		
 		

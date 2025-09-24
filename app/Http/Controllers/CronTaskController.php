@@ -81,9 +81,13 @@ class CronTaskController extends Controller
     	$event = Event::where('start',$date_reminder)->firstOrFail();
     	
     	
-    	$shifts = Shift::where('event_id',$event->id)
-    					->where('user_id',0||null)
-    					->get();
+    	$shifts = Shift::where('event_id', $event->id)
+		               ->where(function ($query) {
+		                   $query->where('user_id', 0)
+		                         ->orWhereNull('user_id');
+		               })
+		               ->get();
+
     	//dd($shifts);				
     					
 		$users = User::role(2)->get(); //to the comité

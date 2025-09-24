@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Event;
-use App\Models\Task;
-use App\Models\Shift;
-use App\Models\User;
+
 
 
 class WelcomeController extends Controller

@@ -69,10 +69,10 @@ class WhatsappController extends Controller
 	{
 		
 		$api_key = env('VONAGE_API_KEY');
-    $api_secret = env('VONAGE_API_SECRET');
-    $TO_NUMBER = env('VONAGE_FROM');
-		
-		$data = $request->all();
-   	var_dump($data);
+	    $api_secret = env('VONAGE_API_SECRET');
+	    $TO_NUMBER = env('VONAGE_FROM');
+			
+			$data = $request->all();
+	   	var_dump($data);
 	}    
 }

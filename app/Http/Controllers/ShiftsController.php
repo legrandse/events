@@ -148,7 +148,9 @@ class ShiftsController extends Controller
 	    $users_without_jobs = [];
 	    foreach ($event->attendee as $attendee) 
 	    {
-	        $users = User::role($attendee)->get();
+	        $users = User::role($attendee)
+	        		->where('email','!=',null)
+	        		->get();
 	        foreach ($users as $user) 
 	        {
 	            if (!in_array($user->id, $shifts)) 
@@ -262,7 +264,7 @@ class ShiftsController extends Controller
 	      		//$file = Storage::disk('local')->get(env('APP_NAME').'.ics');
 	      		//dd($file);
 	    		Mail::to($shift->user->email)
-	    			->cc(env('MAIL_FROM_ADDRESS'))	
+	    			->cc(config('mail.from.address'))	
 	    			->send(new UserShift($shift,$subject,$ical));
 			
 	        
@@ -302,7 +304,7 @@ class ShiftsController extends Controller
 	        $ical =  $this->iCal($shift);	
 	        $subject = 'Horaire bénévole';
 	    		Mail::to($shift->user->email)
-	    			->cc(env('MAIL_FROM_ADDRESS'))	
+	    			->cc(config('mail.from.address'))	
 	    			->send(new UserShift($shift,$subject,$ical));
 	        
 			}
@@ -335,7 +337,7 @@ class ShiftsController extends Controller
 	    		->description($shift->task->description ?? '')
 	    		->startsAt(new DateTime($shift->event->start.''.$shift->start))
 	    		->endsAt(new DateTime($shift->event->start.''.$shift->end))
-	    		->organizer(env('MAIL_FROM_ADDRESS'), env('APP_NAME'))
+	    		->organizer(config('mail.from.address'), config('app.name'))
 	    		->image('https://events.sallelafraternite.be/img/fraternite.svg', 'text/svg+xml', Display::badge())
 	    		//->attendee($shift->user->email, $shift->user->firstname.' '.$shift->user->name) // only an email address is required
 	    		;
@@ -352,7 +354,7 @@ class ShiftsController extends Controller
 		    }
 		    	
 	    	
-			$cal = Calendar::create(env('APP_NAME'))
+			$cal = Calendar::create(config('app.name'))
 					->event($vEvents)
 					->withoutTimezone()
 					->get();
@@ -362,7 +364,7 @@ class ShiftsController extends Controller
 			// Save iCal to a file
 		    
 		   // Save iCal to a file
-		    $filename = env('APP_NAME') . '.ics';
+		    $filename = config('app.name') . '.ics';
 		   // $filePath = storage_path($fileName);
 		   $file = Storage::disk('local')->put($filename, $cal);
 

@@ -183,7 +183,7 @@ class MultiStepForm extends Component
 	    $urlToDashboard = route('appredirect', ['key' => $key]);
 
 	    Mail::to($user->email)
-	        ->cc(env('MAIL_FROM_ADDRESS'))
+	        ->cc(config(mail.from.address))
 	        ->send(new NewUserRegistration($user, $urlToDashboard));
 	}
 	
@@ -244,7 +244,7 @@ class MultiStepForm extends Component
 			$urlToDashBoard = route('appredirect',['key'=>$key]);
             
              Mail::to($user->email)
-				->cc(env('MAIL_FROM_ADDRESS'))        	
+				->cc(config(mail.from.address))        	
         		->send(new NewUserRegistration($user,$urlToDashBoard));
             
             
