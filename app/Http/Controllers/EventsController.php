@@ -68,7 +68,7 @@ class EventsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show($subdomain, Event $event)
     {
         //
     }
@@ -76,8 +76,9 @@ class EventsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Event $event)
+    public function edit($subdomain, Event $event)
     {
+    	
     	$roles = Role::all();
         return view('events.edit',compact('event','roles'));
     }
@@ -85,7 +86,7 @@ class EventsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, $subdomain, Event $event)
     {
         $data = $request->validate([
             'name' => 'required',
@@ -105,7 +106,7 @@ class EventsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event)
+    public function destroy($subdomain, Event $event)
     {
         $event->delete();
         Task::where('event_id',$event->id)->delete();

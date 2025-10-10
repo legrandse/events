@@ -33,7 +33,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>-->
 	<script src="{{ asset('time-picker/dist/js/timepicker.js') }}"></script>
 	 <!-- Hierarchy Select Js -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.2/Chart.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.js"></script>
    	<script src="https://kit.fontawesome.com/ad6bf95f69.js" crossorigin="anonymous"></script>
  	<script src="{{ asset('js/dselect.js')}}"></script>
  	@vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -44,7 +44,7 @@
             <div class="container">
                 <div class="py-1 d-flex flex-row align-items-center justify-content-between">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                   <img src="{{ asset('storage/logo/logo.jpg') }}" width="20%" />
+                   <img id="logo" src="{{ asset('storage/logo/logo.jpg') }}" width="20%" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -118,7 +118,7 @@
                                         {{ __('Logout') }}
                                     </a>
 									
-                                    <a class="dropdown-item" href="{{ route('users.edit',['user'=>Crypt::encrypt( auth()->user()->id) ])  }}">{{ __('Profil management') }}</a>
+                                    <a class="dropdown-item" href="{{ route('users.edit',['user'=>Crypt::encryptString( auth()->user()->id) ])  }}">{{ __('Profil management') }}</a>
                                 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf

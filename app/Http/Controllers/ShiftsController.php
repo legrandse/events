@@ -94,10 +94,12 @@ class ShiftsController extends Controller
 		}
 		
 		
-		Event::where('id',$data['event_id'])
-			    			->update([
-			    			'submited' => 0
-			    			]);
+		Event::where('id', $data['event_id'])
+	    ->where('submited', 0) // n’update que si submited = 0
+	    ->update([
+	        'submited' => 1
+	    ]);
+
 		
 		
 		
@@ -109,7 +111,7 @@ class ShiftsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Shift $shift)
+    public function show($subdomain, Shift $shift)
     {
         //
     }
@@ -117,7 +119,7 @@ class ShiftsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Shift $shift)
+    public function edit($subdomain, Shift $shift)
     {
     	$attendee = Event::find($shift->event_id);
     	//dd($attendee);
@@ -237,7 +239,7 @@ class ShiftsController extends Controller
 	 	/**
 	     * Users subscribing shift.
 	     */
-	    public function update(Request $request, Shift $shift)
+	    public function update(Request $request, $subdomain,  Shift $shift)
 	    {
 	    	
 	    	
@@ -258,7 +260,7 @@ class ShiftsController extends Controller
 	    
 	    	//ical
 	    	$ical =  $this->iCal($shift);
-	        		
+	       
 	  
 	      		$subject = 'Horaire bénévole';
 	      		//$file = Storage::disk('local')->get(env('APP_NAME').'.ics');
@@ -276,7 +278,7 @@ class ShiftsController extends Controller
 		/**
 	     * Admin updating shift.
 	     */
-	    public function updateShift(Request $request, Shift $shift)
+	    public function updateShift(Request $request, $subdomain,  Shift $shift)
 	    {
 	  	
 	       $data =  $request->validate([
@@ -320,7 +322,7 @@ class ShiftsController extends Controller
 	    /**
 	     * Remove the specified resource from storage.
 	     */
-	    public function destroy(Shift $shift)
+	    public function destroy($subdomain, Shift $shift)
 	    {
 	    	
 	        $shift->delete();
@@ -330,13 +332,15 @@ class ShiftsController extends Controller
 	    
 	    
 	    public function iCal($shift) {
+	    	//dd($shift->task->event->start);
+	    	
 	    	//Generating Ical
 			$vEvents = ICALEvent::create()
 	    		->name($shift->task->name)
 	    		->address('rue de la Fohalle 1, 4970 Francorchamps, Belgium')
 	    		->description($shift->task->description ?? '')
-	    		->startsAt(new DateTime($shift->event->start.''.$shift->start))
-	    		->endsAt(new DateTime($shift->event->start.''.$shift->end))
+	    		->startsAt(new DateTime($shift->task->event->start.''.$shift->start))
+	    		->endsAt(new DateTime($shift->task->event->start.''.$shift->end))
 	    		->organizer(config('mail.from.address'), config('app.name'))
 	    		->image('https://events.sallelafraternite.be/img/fraternite.svg', 'text/svg+xml', Display::badge())
 	    		//->attendee($shift->user->email, $shift->user->firstname.' '.$shift->user->name) // only an email address is required

@@ -41,9 +41,9 @@ class Shift extends Model
     
    
     
-    public function event(): BelongsTo
+    /*public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
-    }
+    }*/
     
 }

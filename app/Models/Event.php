@@ -20,11 +20,13 @@ class Event extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+    	
         'name',
         'start',
         'submited',
         'location',
         'attendee',
+        'owner_id',
         
     ];
     
@@ -32,6 +34,11 @@ class Event extends Model
         'attendee' => 'array',
     ];
     
+    
+    public function owner()
+    {
+        return $this->belongsTo(Owner::class);
+    }
     
     /**
      * Get the tasks for the event.
@@ -46,10 +53,23 @@ class Event extends Model
         return $this->belongsTo(User::class);
     }
     
-    public function shifts(): HasMany
+    /*public function shifts(): HasMany
     {
         return $this->hasMany(Shift::class);
-    }
+    }*/
+    public function shifts()
+	{
+	    return $this->hasManyThrough(
+	        Shift::class,
+	        Task::class,
+	        'event_id',  // clé étrangère sur la table tasks
+	        'task_id',   // clé étrangère sur la table shifts
+	        'id',        // clé locale sur events
+	        'id'         // clé locale sur tasks
+	    );
+	}
+    
+    
     
     public function setStartAttribute( $value ) {
 	  $this->attributes['start'] = (new Carbon($value))->format('Y-m-d');

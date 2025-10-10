@@ -9,6 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+
 use Illuminate\Support\Facades\Crypt;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
@@ -92,9 +93,9 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($subdomain, string $id)
     {
-    	$user_id = Crypt::decrypt($id);
+    	$user_id = Crypt::decryptString($id);
     	$user = User::find($user_id);
         return view('users.show',compact('user'));
     }
@@ -102,9 +103,9 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($subdomain, string $id)
     {
-    	$user_id = Crypt::decrypt($id);
+    	$user_id = Crypt::decryptString($id);
     	//dd($user_id);
         $user = User::find($user_id);
         if($user->phone){
@@ -127,7 +128,7 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,$subdomain, string $id)
     {
     if(!$request['social'])
     {
@@ -202,7 +203,7 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($subdomain, User $user)
     {
         $user->delete();
         return redirect()->route('users.index')

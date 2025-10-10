@@ -37,22 +37,26 @@
 			       @endfor
 			        id="heading">
 			            <div class="col lg-12 d-flex flex-row align-items-center justify-content-between">
-				            <button  class="accordion-button collapsed @can('event-list') 
-				                        		@if( array_key_exists($event->id, $missingShift)) 
-				                        			@if( !in_array(0 || null ,$missingShift[$event->id]))  alert alert-success @endif
-				                        		@endif   
-				                        		@if( array_key_exists($event->id, $missingShift)) 
-				                        			@if(in_array(0 || null ,$missingShift[$event->id]) && $event->start <= \Carbon\Carbon::create(now())->addDays(12)->toDateString() ) alert alert-warning ) @endif
-				                        			@if(in_array(0 || null ,$missingShift[$event->id]) && $event->start <= \Carbon\Carbon::create(now())->addDays(7)->toDateString() ) alert alert-danger ) @endif
-				                        		@endif
-				                        	
+				            <button  class="accordion-button collapsed 
+				            				@can('event-list') 
+				                        							                        	
+												@if($totalShiftsByEvents[$event->id]['shifts_count'] > 0)
+												    
+										        {{
+										            $totalShiftsByEvents[$event->id]['confirmed_shifts_count'] / $totalShiftsByEvents[$event->id]['shifts_count'] == 1 ? 'alert alert-success' :
+										            (\Carbon\Carbon::parse($event->start)->lte(now()->addDays(7)) ? 'alert alert-danger' :
+										            (\Carbon\Carbon::parse($event->start)->lte(now()->addDays(12)) ? 'alert alert-warning' : ''))
+										        }}
+												    
+												@endif
 				                        		
 				                        	@endcan" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$event->id}}" 
 			            		aria-expanded="false" 
 			            		aria-controls="collapse{{$event->id}}">
 			            		@can('event-edit')
 			            		<!-- Edit event button -->
-			            		<a href="{{ route('events.edit',['event'=>$event->id]) }}" class="btn btn-light "><i class="fas fa-cogs" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ __('Edit event') }}"></i></a>&nbsp;
+			            		{{$event->id}}
+			            		<a href="{{ route('events.edit',['event' => $event->id]) }}" class="btn btn-secondary "><i class="fas fa-cogs" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ __('Edit event') }}"></i></a>&nbsp;
 			            		
 			            		<!-- Shift submit button -->
 								<a class="btn btn-warning openModalBtn" data-modal-id="sendingShiftModal{{ $event->id }}" data-bs-target="#sendingShiftModal{{ $event->id }}" @if($event->submited > 0 || !array_key_exists($event->id, $missingShift)) hidden @endif>
@@ -72,8 +76,24 @@
 				            
 				            <div class="accordion-body" id="test">
 				            @can('task-create')
-				             <!-- Add Task button -->   
-				            <a href="{{route('tasks.create',['event_id'=>$event->id])}}" class="btn btn-secondary" ><i class="fas fa-layer-group " data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ __('Add Task') }}"></i></a>
+				             <div class="d-flex justify-content-between align-items-center mb-3">
+							    <!-- Add Task button -->
+							    <a href="{{ route('tasks.create', ['event_id' => $event->id]) }}" 
+							       class="btn btn-secondary">
+							        <i class="fas fa-layer-group" 
+							           data-bs-toggle="tooltip" 
+							           data-bs-placement="right" 
+							           data-bs-title="{{ __('Add Task') }}">
+							        </i>
+							    </a>
+
+							    <h4 class="mb-0">
+							        {{ __('Required attendee :') }}
+							        <span class="badge text-bg-secondary">
+							          {{ $totalShiftsByEvents[$event->id]['confirmed_shifts_count'] }} / {{ $totalShiftsByEvents[$event->id]['shifts_count'] }}
+							        </span>
+							    </h4>
+							</div>
 				            <br><br>
 				          	<!-- Form submit for all tasks in the event-->
 					          	<form action="{{ route('massupdate') }}"  method="post" id="formShift{{ $event->id }}" >
@@ -81,7 +101,7 @@
 								@csrf	
 				            @endcan
 				                
-				                @foreach($tasks as $task)
+				                @foreach($event->tasks as $task)
 				                @if($task->event_id == $event->id)
 				                
 				                <div class="accordion-item" >
@@ -89,14 +109,16 @@
 				                    
 				                        <button class="accordion-button collapsed 
 				                        	@can('task-create') 
-				                        		@if( array_key_exists($task->id, $a)) 
-				                        			@if( !in_array(0 || null ,$a[$task->id]))  alert alert-success @endif
-				                        		@endif   
-				                        		@if( array_key_exists($task->id, $a)) 
-				                        			@if(in_array(0 || null ,$a[$task->id]) && $event->start <= \Carbon\Carbon::create(now())->addDays(12)->toDateString() ) alert alert-warning ) @endif
-				                        			@if(in_array(0 || null ,$a[$task->id]) && $event->start <= \Carbon\Carbon::create(now())->addDays(7)->toDateString() ) alert alert-danger ) @endif
-				                        		@endif
 				                        	
+					                        	@if($totalShiftsByEvents[$event->id]['shifts_count'] > 0)
+													    
+											        {{
+											            $totalShiftsByEvents[$event->id]['confirmed_shifts_count'] / $totalShiftsByEvents[$event->id]['shifts_count'] == 1 ? 'alert alert-success' :
+											            (\Carbon\Carbon::parse($event->start)->lte(now()->addDays(7)) ? 'alert alert-danger' :
+											            (\Carbon\Carbon::parse($event->start)->lte(now()->addDays(12)) ? 'alert alert-warning' : ''))
+											        }}
+													    
+												@endif
 				                        		
 				                        	@endcan " type="button" data-bs-toggle="collapse" 
 					                        data-bs-target="#e{{ $task->id }}Three" 
@@ -105,7 +127,7 @@
 					                        
 					                        <!-- Edit task button -->
 					                        @can('task-edit')
-					                        <a href="{{ route('tasks.edit',['task'=>$task->id]) }}" class="btn btn-light " ><i class="fas fa-cogs" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ __('Edit task') }}"></i></a>&nbsp;
+					                        <a href="{{ route('tasks.edit',['task'=>$task->id]) }}" class="btn btn-secondary " ><i class="fas fa-cogs" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ __('Edit task') }}"></i></a>&nbsp;
 					                        @endcan
 					                        
 					                        <!-- Info button -->
@@ -119,14 +141,23 @@
 				                    <div id="e{{ $task->id }}Three" class="accordion-collapse collapse @hasrole('Bénévole') show @endhasrole " aria-labelledby="task{{$task->id}}Three" data-bs-parent="#accordionTask{{ $event->id }}">
 				                        
 				                        <div class="accordion-body table-responsive @unlessrole('Admin|Comité') 
-				                        		@if( array_key_exists($task->id, $a)) 
+				                        	{{--	@if( array_key_exists($task->id, $a)) 
 				                        			@if( !in_array(0 || null ,$a[$task->id]))  alert alert-success @endif
 				                        		@endif   
 				                        		@if( array_key_exists($task->id, $a)) 
 				                        			@if(in_array(0 || null ,$a[$task->id]) && $event->start <= \Carbon\Carbon::create(now())->addDays(12)->toDateString() ) alert alert-warning ) @endif
 				                        			@if(in_array(0 || null ,$a[$task->id]) && $event->start <= \Carbon\Carbon::create(now())->addDays(7)->toDateString() ) alert alert-danger ) @endif
 				                        		@endif
-				                        	
+				                        	--}}
+					                        	@if($totalShiftsByEvents[$event->id]['shifts_count'] > 0)
+													    
+											        {{
+											            $totalShiftsByEvents[$event->id]['confirmed_shifts_count'] / $totalShiftsByEvents[$event->id]['shifts_count'] == 1 ? 'alert alert-success' :
+											            (\Carbon\Carbon::parse($event->start)->lte(now()->addDays(7)) ? 'alert alert-danger' :
+											            (\Carbon\Carbon::parse($event->start)->lte(now()->addDays(12)) ? 'alert alert-warning' : ''))
+											        }}
+													    
+												@endif
 				                        		
 				                        	@endunlessrole ">
 				                        @can('shift-create')
@@ -144,7 +175,7 @@
 												<th>{{__('Edit')}}</th>
 												@endcan
 												
-												@foreach($shifts as $shift)
+												@foreach($task->shifts as $shift)
 												@if($shift->event_id == $event->id && $shift->task_id == $task->id)
 													@hasrole('Bénévole')
 													<form action="{{ route('shifts.update',['shift'=>$shift]) }}" id="confirmShift{{ $shift->id }}" method="post"  >

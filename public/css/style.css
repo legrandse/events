@@ -34,6 +34,11 @@
     width: 20px;
 }
 
+#logo {
+	
+	width: 20%;
+	
+}
 
 /* toggle container */
 .card-checkbox.custom-control-input:not(:checked) ~ .custom-control-label::before {

@@ -33,7 +33,7 @@
 						      			{{ $user->firstname.' '.$user->name   }}
 									</td>
 						     		<td>
-						     			<a class="btn btn-secondary" href="{{route('users.edit',['user'=>Crypt::encrypt($user->id)])}}"  ><i class="far fa-edit " data-bs-toggle="tooltip" 
+						     			<a class="btn btn-secondary" href="{{route('users.edit',['user'=>Crypt::encryptString($user->id)])}}"  ><i class="far fa-edit " data-bs-toggle="tooltip" 
 								                        		data-bs-placement="left" 
 								                        		data-bs-title="Edit user"></i></a>
 							     		

@@ -69,7 +69,7 @@ class RolesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Role $role)
+    public function show($subdomain, Role $role)
     {
         
         $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
@@ -82,7 +82,7 @@ class RolesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Role $role)
+    public function edit($subdomain, Role $role)
     {
         //$role = Role::find($role->id);
         $permission = Permission::get();
@@ -97,7 +97,7 @@ class RolesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, $subdomain, Role $role)
     {
             $data = $request->validate( [
             'name' => 'required',
@@ -118,7 +118,7 @@ class RolesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Role $role)
+    public function destroy($subdomain, Role $role)
     {
         Role::find($role->id)->delete();
         return redirect()->route('roles.index')

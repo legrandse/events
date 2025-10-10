@@ -22,6 +22,6 @@ Il serait temps de finaliser ce/ces point(s) afin de ne pas être pris au dépou
 
 A vous de jouer !<br>
 
-L'app "Let's Organize",<br>
+L'app "MyEventz",<br>
 
 </x-mail::message>

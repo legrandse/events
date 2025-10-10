@@ -52,8 +52,8 @@ class UserShift extends Mailable
             markdown: 'emails.shifts.user',
             with: [
             'username' => $this->shift->user->firstname,
-            'event' => $this->shift->event->name,
-            'date' => date('d-m-Y',strtotime($this->shift->event->start)),
+            'event' => $this->shift->task->event->name,
+            'date' => date('d-m-Y',strtotime($this->shift->task->event->start)),
             'shift' => $this->shift,
             //'url' => $this->url.'#collapse'.$this->shift->event->id,
             ]

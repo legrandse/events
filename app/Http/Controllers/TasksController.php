@@ -63,7 +63,7 @@ class TasksController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show($subdomain, Task $task)
     {
         //
     }
@@ -71,7 +71,7 @@ class TasksController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task)
+    public function edit($subdomain, Task $task)
     {
         return view('tasks.edit',compact('task'));
     }
@@ -79,7 +79,7 @@ class TasksController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, $subdomain, Task $task)
     {
     	
         $data = $request->validate([
@@ -97,7 +97,7 @@ class TasksController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy($subdomain, Task $task)
     {	
     	Shift::where('task_id',$task->id)->delete();
         $task->delete();

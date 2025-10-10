@@ -15,7 +15,7 @@
      
      <!-- Hierarchy Select CSS -->
 	
-
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<link rel="stylesheet" href="{{asset('assets/css/templatemo-chain-app-dev.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/animated.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/owl.css')}}">
@@ -47,7 +47,7 @@
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
             <a href="index.html" class="logo">
-              <img src="assets/images/logo.png" alt="Chain App Dev">
+              <img src="{{asset('assets/images/logo.png')}}" alt="Chain App Dev">
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
@@ -77,30 +77,7 @@
     </div>
 
     <section class="popupBody">
-        <!-- Social Login -->
-        <div class="social_login">
-            <div class="">
-                <a href="#" class="social_box fb">
-                    <span class="icon"><i class="fab fa-facebook"></i></span>
-                    <span class="icon_title">Connect with Facebook</span>
-
-                </a>
-
-                <a href="#" class="social_box google">
-                    <span class="icon"><i class="fab fa-google-plus"></i></span>
-                    <span class="icon_title">Connect with Google</span>
-                </a>
-            </div>
-
-            <div class="centeredText">
-                <span>Or use your Email address</span>
-            </div>
-
-            <div class="action_btns">
-                <div class="one_half"><a href="#" id="login_form" class="btn">Login</a></div>
-                <div class="one_half last"><a href="#" id="register_form" class="btn">Sign up</a></div>
-            </div>
-        </div>
+        
 
         <!-- Username & Password Login form -->
         <div class="user_login">
@@ -127,34 +104,9 @@
             <a href="#" class="forgot_password">Forgot password?</a>
         </div>
 
-        <!-- Register Form -->
-        <div class="user_register">
-            <form>
-                <label>Full Name</label>
-                <input type="text" />
-                <br />
-
-                <label>Email Address</label>
-                <input type="email" />
-                <br />
-
-                <label>Password</label>
-                <input type="password" />
-                <br />
-
-                <div class="checkbox">
-                    <input id="send_updates" type="checkbox" />
-                    <label for="send_updates">Send me occasional email updates</label>
-                </div>
-
-                <div class="action_btns">
-                    <div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> Back</a></div>
-                    <div class="one_half last"><a href="#" class="btn btn_red">Register</a></div>
-                </div>
-            </form>
-        </div>
+        
     </section>
-</div>
+  </div>
 
   <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
     <div class="container">
@@ -181,7 +133,7 @@
             </div>
             <div class="col-lg-6">
               <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
-                <img src="assets/images/slider-dec.png" alt="">
+                <img src="{{asset('assets/images/slider-dec.png')}}" alt="">
               </div>
             </div>
           </div>
@@ -196,7 +148,7 @@
         <div class="col-lg-8 offset-lg-2">
           <div class="section-heading  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
             <h4>Amazing <em>Services &amp; Features</em> for you</h4>
-            <img src="assets/images/heading-line-dec.png" alt="">
+            <img src="{{asset('assets/images/heading-line-dec.png')}}" alt="">
             <p>If you need the greatest collection of HTML templates for your business, please visit <a rel="nofollow" href="https://www.toocss.com/" target="_blank">TooCSS</a> Blog. If you need to have a contact form PHP script, go to <a href="https://templatemo.com/contact" target="_parent">our contact page</a> for more information.</p>
           </div>
         </div>
@@ -254,7 +206,7 @@
         <div class="col-lg-6 align-self-center">
           <div class="section-heading">
             <h4>About <em>What We Do</em> &amp; Who We Are</h4>
-            <img src="assets/images/heading-line-dec.png" alt="">
+            <img src="{{asset('assets/images/heading-line-dec.png')}}" alt="">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p>
           </div>
           <div class="row">
@@ -293,7 +245,7 @@
         </div>
         <div class="col-lg-6">
           <div class="right-image">
-            <img src="assets/images/about-right-dec.png" alt="">
+            <img src="{{asset('assets/images/about-right-dec.png')}}" alt="">
           </div>
         </div>
       </div>
@@ -306,7 +258,7 @@
         <div class="col-lg-8 offset-lg-2">
           <div class="section-heading">
             <h4>Check What <em>The Clients Say</em> About Our App Dev</h4>
-            <img src="assets/images/heading-line-dec.png" alt="">
+            <img src="{{asset('assets/images/heading-line-dec.png')}}" alt="">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p>
           </div>
         </div>
@@ -431,12 +383,12 @@
                           <div class="row">
                             <div class="col-lg-12">
                               <div class="client-content">
-                                <img src="assets/images/quote.png" alt="">
+                                <img src="{{asset('assets/images/quote.png')}}" alt="">
                                 <p>“Lorem ipsum dolor sit amet, consectetur adpiscing elit, sed do eismod tempor idunte ut labore et dolore magna aliqua darwin kengan
                                   lorem ipsum dolor sit amet, consectetur picing elit massive big blasta.”</p>
                               </div>
                               <div class="down-content">
-                                <img src="assets/images/client-image.jpg" alt="">
+                                <img src="{{asset('assets/images/client-image.jpg')}}" alt="">
                                 <div class="right-content">
                                   <h4>David Martino</h4>
                                   <span>CEO of David Company</span>
@@ -453,12 +405,12 @@
                           <div class="row">
                             <div class="col-lg-12">
                               <div class="client-content">
-                                <img src="assets/images/quote.png" alt="">
+                                <img src="{{asset('assets/images/quote.png')}}" alt="">
                                 <p>“CTO, Lorem ipsum dolor sit amet, consectetur adpiscing elit, sed do eismod tempor idunte ut labore et dolore magna aliqua darwin kengan
                                   lorem ipsum dolor sit amet, consectetur picing elit massive big blasta.”</p>
                               </div>
                               <div class="down-content">
-                                <img src="assets/images/client-image.jpg" alt="">
+                                <img src="{{asset('assets/images/client-image.jpg')}}" alt="">
                                 <div class="right-content">
                                   <h4>Jake H. Nyo</h4>
                                   <span>CTO of Digital Company</span>
@@ -475,12 +427,12 @@
                           <div class="row">
                             <div class="col-lg-12">
                               <div class="client-content">
-                                <img src="assets/images/quote.png" alt="">
+                                <img src="{{asset('assets/images/quote.png')}}" alt="">
                                 <p>“May, Lorem ipsum dolor sit amet, consectetur adpiscing elit, sed do eismod tempor idunte ut labore et dolore magna aliqua darwin kengan
                                   lorem ipsum dolor sit amet, consectetur picing elit massive big blasta.”</p>
                               </div>
                               <div class="down-content">
-                                <img src="assets/images/client-image.jpg" alt="">
+                                <img src="{{asset('assets/images/client-image.jpg')}}" alt="">
                                 <div class="right-content">
                                   <h4>May C.</h4>
                                   <span>Founder of Catherina Co.</span>
@@ -497,12 +449,12 @@
                           <div class="row">
                             <div class="col-lg-12">
                               <div class="client-content">
-                                <img src="assets/images/quote.png" alt="">
+                                <img src="{{asset('assets/images/quote.png')}}" alt="">
                                 <p>“Lorem ipsum dolor sit amet, consectetur adpiscing elit, sed do eismod tempor idunte ut labore et dolore magna aliqua darwin kengan
                                   lorem ipsum dolor sit amet, consectetur picing elit massive big blasta.”</p>
                               </div>
                               <div class="down-content">
-                                <img src="assets/images/client-image.jpg" alt="">
+                                <img src="{{asset('assets/images/client-image.jpg')}}" alt="">
                                 <div class="right-content">
                                   <h4>Random Staff</h4>
                                   <span>Manager, Digital Company</span>
@@ -519,12 +471,12 @@
                           <div class="row">
                             <div class="col-lg-12">
                               <div class="client-content">
-                                <img src="assets/images/quote.png" alt="">
+                                <img src="{{asset('assets/images/quote.png')}}" alt="">
                                 <p>“Mark, Lorem ipsum dolor sit amet, consectetur adpiscing elit, sed do eismod tempor idunte ut labore et dolore magna aliqua darwin kengan
                                   lorem ipsum dolor sit amet, consectetur picing elit massive big blasta.”</p>
                               </div>
                               <div class="down-content">
-                                <img src="assets/images/client-image.jpg" alt="">
+                                <img src="{{asset('assets/images/client-image.jpg')}}" alt="">
                                 <div class="right-content">
                                   <h4>Mark Am</h4>
                                   <span>CTO, Amber Do Company</span>
@@ -544,80 +496,118 @@
       </div>
     </div>
   </div>
+<div id="pricing" class="pricing-tables">
+	    <div class="container">
+	      <div class="row">
+	        <div class="col-lg-8 offset-lg-2">
+	          <div class="section-heading">
+	            <h4>We Have The Best Pre-Order <em>Prices</em> You Can Get</h4>
+	            <img src="assets/images/heading-line-dec.png" alt="">
+	            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p>
+	          </div>
+	        </div>
+	    	<div class="col-lg-4">
+	          <div class="pricing-item-regular">
+	            <span class="price">0€</span>
+	            <h4>Free Plan App</h4>
+	            <div class="icon">
+	              <img src="{{asset('assets/images/pricing-table-01.png')}}" alt="">
+	            </div>
+	            <ul>
+	              <li>Lorem Ipsum Dolores</li>
+	              <li>20 TB of Storage</li>
+	              <li class="non-function">Life-time Support</li>
+	              <li class="non-function">Premium Add-Ons</li>
+	              <li class="non-function">Fastest Network</li>
+	              <li class="non-function">More Options</li>
+	            </ul>
+	            <div class="border-button">
+				  <a href="#" 
+				     data-bs-toggle="modal" 
+				     data-bs-target="#registerModal" 
+				     data-plan="1">
+				     Purchase This Plan Now
+				  </a>
+				</div>
+	          </div>
+	        </div>
+	        <div class="col-lg-4">
+	          <div class="pricing-item-pro">
+	            <span class="price">9€</span>
+	            <h4>Essential Plan App</h4>
+	            <div class="icon">
+	              <img src="{{asset('assets/images/pricing-table-01.png')}}" alt="">
+	            </div>
+	            <ul>
+	              <li>Lorem Ipsum Dolores</li>
+	              <li>50 TB of Storage</li>
+	              <li>Life-time Support</li>
+	              <li>Premium Add-Ons</li>
+	              <li class="non-function">Fastest Network</li>
+	              <li class="non-function">More Options</li>
+	            </ul>
+	            <div class="border-button">
+				  <a href="#" 
+				     data-bs-toggle="modal" 
+				     data-bs-target="#registerModal" 
+				     data-plan="2">
+				     Purchase This Plan Now
+				  </a>
+				</div>
+	          </div>
+	        </div>
+	        <div class="col-lg-4">
+	          <div class="pricing-item-regular">
+	            <span class="price">19€</span>
+	            <h4>Premium Plan App</h4>
+	            <div class="icon">
+	              <img src="{{asset('assets/images/pricing-table-01.png')}}" alt="">
+	            </div>
+	            <ul>
+	              <li>Lorem Ipsum Dolores</li>
+	              <li>120 TB of Storage</li>
+	              <li>Life-time Support</li>
+	              <li>Premium Add-Ons</li>
+	              <li>Fastest Network</li>
+	              <li>More Options</li>
+	            </ul>
+	            <div class="border-button">
+				  <a href="#" 
+				     data-bs-toggle="modal" 
+				     data-bs-target="#registerModal" 
+				     data-plan="3">
+				     Purchase This Plan Now
+				  </a>
+				</div>
+	          </div>
+	        </div>
+	        </div>
+		</div>
+	</div>
+	
+	<!-- Modal -->
+		<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h6 class="modal-title mx-auto fs-5" id="exampleModalLabel"><span class="fw-bold">Connexion ou inscription</span></h6>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		       </div>
+		      
+		      <div class="modal-body">
+			  <p class="fw-bold fs-4">Bienvenue sur Events</p>
+		       <livewire:register-step-form />
 
-  <div id="pricing" class="pricing-tables">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-          <div class="section-heading">
-            <h4>We Have The Best Pre-Order <em>Prices</em> You Can Get</h4>
-            <img src="assets/images/heading-line-dec.png" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="pricing-item-regular">
-            <span class="price">$12</span>
-            <h4>Standard Plan App</h4>
-            <div class="icon">
-              <img src="assets/images/pricing-table-01.png" alt="">
-            </div>
-            <ul>
-              <li>Lorem Ipsum Dolores</li>
-              <li>20 TB of Storage</li>
-              <li class="non-function">Life-time Support</li>
-              <li class="non-function">Premium Add-Ons</li>
-              <li class="non-function">Fastest Network</li>
-              <li class="non-function">More Options</li>
-            </ul>
-            <div class="border-button">
-              <a href="#">Purchase This Plan Now</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="pricing-item-pro">
-            <span class="price">$25</span>
-            <h4>Business Plan App</h4>
-            <div class="icon">
-              <img src="assets/images/pricing-table-01.png" alt="">
-            </div>
-            <ul>
-              <li>Lorem Ipsum Dolores</li>
-              <li>50 TB of Storage</li>
-              <li>Life-time Support</li>
-              <li>Premium Add-Ons</li>
-              <li class="non-function">Fastest Network</li>
-              <li class="non-function">More Options</li>
-            </ul>
-            <div class="border-button">
-              <a href="#">Purchase This Plan Now</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="pricing-item-regular">
-            <span class="price">$66</span>
-            <h4>Premium Plan App</h4>
-            <div class="icon">
-              <img src="assets/images/pricing-table-01.png" alt="">
-            </div>
-            <ul>
-              <li>Lorem Ipsum Dolores</li>
-              <li>120 TB of Storage</li>
-              <li>Life-time Support</li>
-              <li>Premium Add-Ons</li>
-              <li>Fastest Network</li>
-              <li>More Options</li>
-            </ul>
-            <div class="border-button">
-              <a href="#">Purchase This Plan Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> 
+		      </div>
+			</div>
+		  </div>
+		</div>
+  
+        
+        
+      
+ 
 
   <footer id="newsletter">
     <div class="container">
@@ -691,7 +681,7 @@
           <div class="footer-widget">
             <h4>About Our Company</h4>
             <div class="logo">
-              <img src="assets/images/white-logo.png" alt="">
+              <img src="{{asset('assets/images/white-logo.png')}}" alt="">
             </div>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
           </div>
@@ -711,13 +701,29 @@
 
 
   <!-- Scripts -->
-  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
  <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
-  <script src="assets/js/owl-carousel.js"></script>
-  <script src="assets/js/animation.js"></script>
-  <script src="assets/js/imagesloaded.js"></script>
-  <script src="assets/js/popup.js"></script>
-  <script src="assets/js/custom.js"></script>
+  <script src="{{asset('assets/js/owl-carousel.js')}}"></script>
+  <script src="{{asset('assets/js/animation.js')}}"></script>
+  <script src="{{asset('assets/js/imagesloaded.js')}}"></script>
+  <script src="{{asset('assets/js/popup.js')}}"></script>
+  <script src="{{asset('assets/js/custom.js')}}"></script>
+  
+	<script>
+	const registerModal = document.getElementById('registerModal');
+	registerModal.addEventListener('show.bs.modal', event => {
+	    let button = event.relatedTarget;
+	    let plan = button.getAttribute('data-plan');
+		console.log(plan);
+	    Livewire.dispatch('setPlan', { data: plan });
+	});
+
+	</script>
+
+  
+  
+  
+  
 </body>
 
 

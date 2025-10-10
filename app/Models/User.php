@@ -29,6 +29,7 @@ class User extends Authenticatable
         'password',
         'social_id',
         
+        
     ];
 
     /**
@@ -64,4 +65,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Task::class);
     }*/
+    public function owners()
+	{
+	    return $this->belongsToMany(Owner::class, 'owner_user');
+	}
+    
+    
+    
 }
