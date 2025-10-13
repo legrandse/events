@@ -17,6 +17,7 @@ class SubDomainController extends Controller
     {
     	if($shortname == 'www'){
     		$owner = 'www';
+    		return view('/',compact('owner'));
     	}
     	else {
     	$owner = Owner::where('shortname', $shortname)->first();
