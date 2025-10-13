@@ -22,15 +22,18 @@ use Propaganistas\LaravelPhone\PhoneNumber;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-	
-	
-   
-
-Route::get('/', [WelcomeController::class, 'index'])->middleware(['guest'])->name('welcome');
-Route::resource('owners', OwnerController::class);
-Route::get('/redirect', [SocialController::class, 'redirectFacebook']);
+// Option 1 : www
+Route::domain('www.' . config('app.url'))->group(function () {
+    Route::get('/', [WelcomeController::class, 'index'])->middleware('guest')->name('welcome');
+    Route::resource('owners', OwnerController::class);
+    Route::get('/redirect', [SocialController::class, 'redirectFacebook']);
     Route::get('/callback', [SocialController::class, 'facebookCallback']);
     Route::get('/google', [SocialController::class, 'redirectGoogle'])->name('auth.google');
     Route::get('/auth/google/callback', [SocialController::class, 'googleCallback']);
+});
 
+// Option 2 : racine (sans www)
+Route::get('/', [WelcomeController::class, 'index'])->middleware('guest')->name('welcome');
+
+
+	
