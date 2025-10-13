@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
     	// routes sous-domaine dynamique
             Route::middleware('web')
                 ->domain('{subdomain}.' . config('app.url'))
+                ->where('shortname', '^(?!www$).+')
                 ->middleware('throttle:subdomain')
                 ->group(base_path('routes/subdomain.php'));
 
