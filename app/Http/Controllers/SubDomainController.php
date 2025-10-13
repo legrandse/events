@@ -15,8 +15,13 @@ class SubDomainController extends Controller
      */
     public function index(Request $request, $shortname)
     {
+    	if($shortname == 'www'){
+    		$owner = 'www';
+    	}
+    	else {
     	$owner = Owner::where('shortname', $shortname)->first();
-
+		}
+		
         if (! $owner) {
             throw new NotFoundHttpException("Ce sous-domaine n'existe pas.");
         }
