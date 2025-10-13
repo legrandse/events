@@ -11,6 +11,7 @@ class Owner extends Model
 
     protected $fillable = [
         'organisation',
+        'shortname',
         'address',
         'postcode',
         'place',
