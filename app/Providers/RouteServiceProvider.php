@@ -27,6 +27,15 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
+        	// routes sous-domaine dynamique
+            Route::middleware('web')
+                ->domain('{subdomain}.' . config('app.url'))
+                //->where('shortname', '^(?!www$).+') // Exclut explicitement 'www'
+                //->middleware('throttle:subdomain')
+                ->group(base_path('routes/subdomain.php'));
+        	
+        	
+        	
             Route::middleware('api')
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
@@ -48,7 +57,7 @@ class RouteServiceProvider extends ServiceProvider
         
         RateLimiter::for('subdomain', function (Request $request) {
         // Limiter à 1 tentative toutes les 10 secondes par IP
-        return Limit::perMinutes(1/6, 1)->by($request->ip());
+        return Limit::perMinutes(1/6, 2)->by($request->ip());
     });
         
     }

@@ -23,6 +23,7 @@ class SubDomainController extends Controller
     	$owner = Owner::where('shortname', $shortname)->first();
 		}
 		
+		
         if (! $owner) {
             throw new NotFoundHttpException("Ce sous-domaine n'existe pas.");
         }
