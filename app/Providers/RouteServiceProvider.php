@@ -45,5 +45,11 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+        
+        RateLimiter::for('subdomain', function (Request $request) {
+        // Limiter à 1 tentative toutes les 10 secondes par IP
+        return Limit::perSeconds(10, 1)->by($request->ip());
+    });
+        
     }
 }
