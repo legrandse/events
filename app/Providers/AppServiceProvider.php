@@ -6,6 +6,13 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\URL;
+use App\Http\Middleware\TeamsPermission;
+use App\Http\Middleware\TenantMiddleware;
+use App\Http\Middleware\SetSubdomainDefault;
+
+use Illuminate\Foundation\Http\Kernel;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +35,20 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') === 'production') {
         	URL::forceScheme('https');
     	}
+    	
+    	/** @var Kernel $kernel */
+        $kernel = app()->make(Kernel::class);
+
+        // Ajoute ton middleware AVANT SubstituteBindings
+        $kernel->addToMiddlewarePriorityBefore(
+        	TeamsPermission::class,
+        	SetSubdomainDefault::class,
+        	TenantMiddleware::class,
+           
+            SubstituteBindings::class,
+        );
+    	
+    	
         
     }
 }

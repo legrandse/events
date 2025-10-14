@@ -31,6 +31,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+    	//dd(session()->all());
     	$archiveDate = Settings::find(1)->value ? : 1825;
 		$archiveSetDate = Carbon::now()->subDays($archiveDate)->toDateString();
     	

@@ -32,8 +32,10 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {
-            //dd($request);
-            $roles = Role::orderBy('id','DESC')->paginate(5);
+            $owner = app('currentOwner'); //middelware TenantMiddelware
+            $roles = Role::orderBy('id','DESC')
+            		->where('team_id',$owner->id)
+            		->paginate(5);
 
         	return view('roles.index',compact('roles'))
 

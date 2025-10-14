@@ -100,6 +100,13 @@
 	                     </div>
 	                 </div>
 	                 <div class="col-md-6">
+	                     <div class="form-group  mb-3">
+	                         <label for="">{{__('Shortname')}}</label>
+	                         <input type="text" class="form-control @error('shortname') is-invalid @enderror" placeholder="{{__('ex: mon-organisation')}}" wire:model.blur="shortname">
+	                        <span class="text-danger">@error('shortname'){{ $message }}@enderror</span>
+	                     </div>
+	                 </div>
+	                 <div class="col-md-6">
 	                    <div class="form-group  mb-3">
 	                        <label for="">{{__('Address')}}</label>
 	                        <input type="text" class="form-control @error('address') is-invalid @enderror" placeholder="{{__('Enter company address')}}" wire:model.blur="address">
@@ -187,8 +194,10 @@
     
 @script
 <script>
-	$wire.on('registered', () => {
-        window.location.href = 'http://app.events.test';
+	$wire.on('registered', (event) => {
+        // Récupération du paramètre envoyé depuis Livewire
+        const redirectUrl = event.url;
+        window.location.href = redirectUrl;
     });
 </script>
 @endscript

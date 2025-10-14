@@ -14,6 +14,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SMSController;
 use App\Http\Controllers\SubDomainController;
 
+Route::middleware(['teams.permission'])->group(function () {
 
  	Route::get('/', [SubDomainController::class, 'index'])->middleware(['guest'])->name('subdomain');
     
@@ -62,3 +63,4 @@ Auth::routes();
         // Route::get('/message', [WhatsappController::class, 'message'])->name('Wmessage'); // décommenter si utilisé
 
 	});
+});

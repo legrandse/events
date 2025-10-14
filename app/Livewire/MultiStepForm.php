@@ -4,7 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Models\Owner;
+use App\Models\OwnerUser;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Hash;
 use Crypt;
 use Illuminate\Support\Facades\Auth;
@@ -79,7 +82,7 @@ class MultiStepForm extends Component
             $this->validate([
                
                'phone' => 'required',
-	            'password' => 'required',
+	           'password' => 'required',
                 
             ]);
         }
@@ -118,27 +121,77 @@ class MultiStepForm extends Component
 	
 	
 	
-	public function login(){
+	/*public function login(){
 		
         $this->currentStep = 0;
         $this->resetErrorBag();
         $this->validateData();
-        //$house = House::find(1);
- 		//$remember = request('remember');
- 		
-        //if (Auth::attempt($credentials, $remember)) {
-        //		$request->session()->regenerate();
+        
 	    	
 	        
 	        if(Auth::attempt(array('phone' => $this->phone, 'password' => $this->password),$this->remember)){
-	                //session()->flash('message', "You are Login successful.");
+	                session()->flash('message', "You are Login successful.");
 	                return $this->redirect('/home');
-	        }else{
+	        } else {
 	            session()->flash('message', 'email and password are wrong.');
 	            
 	        }
 	
+	}*/
+	
+	public function login()
+	{
+	    $this->currentStep = 0;
+	    $this->resetErrorBag();
+	    $this->validateData();
+
+	    // 🔹 Étape 1 : récupérer le sous-domaine
+	    $host = request()->getHost(); // ex: team1.monapp.com
+	    $parts = explode('.', $host);
+	    $subdomain = count($parts) > 2 ? $parts[0] : null;
+
+	    // 🔹 Étape 2 : trouver l’owner associé
+	    $owner = null;
+	    if ($subdomain) {
+	        $owner = Owner::where('shortname', $subdomain)->first();
+	    }
+
+	    if (!$owner) {
+	        session()->flash('message', 'Sous-domaine invalide ou non associé à un propriétaire.');
+	        return;
+	    }
+
+	    // 🔹 Étape 3 : tenter la connexion
+	    if (Auth::attempt(['phone' => $this->phone, 'password' => $this->password], $this->remember)) {
+	        $user = Auth::user();
+
+	        // 🔹 Étape 4 : vérifier que le user appartient à l’owner
+	        $isLinked = OwnerUser::where('owner_id', $owner->id)
+	            ->where('user_id', $user->id)
+	            ->exists();
+
+	        if (!$isLinked) {
+	            Auth::logout();
+	            session()->flash('message', 'Cet utilisateur ne fait pas partie de cette équipe.');
+	            return;
+	        }
+
+	        // 🔹 Étape 5 : enregistrer team_id dans la session
+	        session(['team_id' => $owner->id]);
+
+	        // Debug temporaire :
+	        // dd(session()->all());
+
+	        session()->flash('message', "Connexion réussie !");
+	        return $this->redirect('/home', navigate: true);
+	    } else {
+	        session()->flash('message', 'Téléphone ou mot de passe incorrect.');
+	    }
 	}
+	
+	
+	
+	
 	
 	/*
 	 * Create a new user and assign the 'Bénévole' role.

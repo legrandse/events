@@ -55,7 +55,7 @@
 			            		aria-controls="collapse{{$event->id}}">
 			            		@can('event-edit')
 			            		<!-- Edit event button -->
-			            		{{$event->id}}
+			            		
 			            		<a href="{{ route('events.edit',['event' => $event->id]) }}" class="btn btn-secondary "><i class="fas fa-cogs" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ __('Edit event') }}"></i></a>&nbsp;
 			            		
 			            		<!-- Shift submit button -->
