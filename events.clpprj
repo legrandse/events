@@ -12,37 +12,24 @@
  <removed value=";"/>
  <added value=""/>
  <lastopfiles>
-  <file name="C:\laragon\www\events\app\Http\Controllers\ShiftsController.php"/>
-  <file name="C:\laragon\www\events\app\Http\Controllers\SMSController.php"/>
-  <file name="C:\laragon\www\events\app\Http\Controllers\ICALController.php"/>
-  <file name="C:\laragon\www\events\app\Http\Controllers\SocialController.php"/>
-  <file name="C:\laragon\www\events\routes\web.php"/>
-  <file name="C:\laragon\www\events\app\Http\Controllers\WelcomeController.php"/>
-  <file name="C:\laragon\www\events\resources\views\welcome.blade.php"/>
-  <file name="C:\laragon\www\events\resources\views\layouts\site.blade.php"/>
-  <file name="C:\laragon\www\events\resources\views\layouts\app.blade.php"/>
-  <file name="C:\laragon\www\events\app\Models\Owner.php"/>
-  <file name="C:\laragon\www\events\app\Models\Event.php"/>
-  <file name="C:\laragon\www\events\resources\views\events\create.blade.php"/>
-  <file name="C:\laragon\www\events\resources\views\owners\create.blade.php"/>
-  <file name="C:\laragon\www\events\app\Models\Price.php"/>
-  <file name="C:\laragon\www\events\app\Http\Controllers\HomeController.php"/>
-  <file name="C:\laragon\www\events\app\Livewire\RegisterStepForm.php"/>
-  <file name="C:\laragon\www\events\resources\views\livewire\register-step-form.blade.php"/>
-  <file name="C:\laragon\www\events\app\Livewire\MultiStepForm.php"/>
-  <file name="C:\laragon\www\events\app\Models\User.php"/>
-  <file name="C:\laragon\www\events\app\Models\Shift.php"/>
-  <file name="C:\laragon\www\events\app\Http\Controllers\SubDomainController.php"/>
-  <file name="C:\laragon\www\events\app\Providers\AppServiceProvider.php"/>
   <file name="C:\laragon\www\events\app\Providers\RouteServiceProvider.php"/>
-  <file name="C:\laragon\www\events\database\migrations\2025_10_01_145750_create_owner_user_table.php"/>
-  <file name="C:\laragon\www\events\app\Models\OwnerUser.php"/>
-  <file name="C:\laragon\www\events\database\migrations\2025_10_01_150711_create_migration_for_owner_user_table.php"/>
-  <file name="C:\laragon\www\events\app\Http\Controllers\CronTaskController.php"/>
+  <file name="C:\laragon\www\events\app\Http\Controllers\Auth\LoginController.php"/>
+  <file name="C:\laragon\www\events\app\Livewire\RegisterStepForm.php"/>
+  <file name="C:\laragon\www\events\app\Http\Controllers\UsersController.php"/>
+  <file name="C:\laragon\www\events\app\Http\Controllers\SubDomainController.php"/>
+  <file name="C:\laragon\www\events\app\Http\Middleware\TenantMiddleware.php"/>
+  <file name="C:\laragon\www\events\resources\views\users\index.blade.php"/>
   <file name="C:\laragon\www\events\app\Http\Controllers\EventsController.php"/>
-  <file name="C:\laragon\www\events\app\Http\Middleware\SetSubdomainDefault.php"/>
-  <file name="C:\laragon\www\events\bootstrap\app.php"/>
+  <file name="C:\laragon\www\events\app\Livewire\SearchUser.php"/>
+  <file name="C:\laragon\www\events\app\Http\Controllers\HomeController.php"/>
+  <file name="C:\laragon\www\events\resources\views\home.blade.php"/>
   <file name="C:\laragon\www\events\routes\subdomain.php"/>
+  <file name="C:\laragon\www\events\resources\views\events\edit.blade.php"/>
+  <file name="C:\laragon\www\events\app\Livewire\MultiStepForm.php"/>
+  <file name="C:\laragon\www\events\app\Http\Middleware\VerifyUserOwner.php"/>
+  <file name="C:\laragon\www\events\app\Http\Kernel.php"/>
+  <file name="C:\laragon\www\events\app\Providers\AppServiceProvider.php"/>
+  <file name="C:\laragon\www\events\app\Http\Middleware\SetSubdomainDefault.php"/>
   <lastactivefile name=""/>
  </lastopfiles>
  <todoblock>
@@ -729,5 +716,5 @@
   </todofile>
  </todoblock>
  <dbgurls/>
- <lasttime value="1759404552"/>
+ <lasttime value="1760540236"/>
 </project>

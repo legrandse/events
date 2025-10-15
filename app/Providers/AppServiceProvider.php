@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\URL;
 use App\Http\Middleware\TeamsPermission;
 use App\Http\Middleware\TenantMiddleware;
 use App\Http\Middleware\SetSubdomainDefault;
+use App\Http\Middleware\VerifyUserOwner;
 
 use Illuminate\Foundation\Http\Kernel;
 use Illuminate\Routing\Middleware\SubstituteBindings;
@@ -44,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
         	TeamsPermission::class,
         	SetSubdomainDefault::class,
         	TenantMiddleware::class,
+        	//VerifyUserOwner::class,
            
             SubstituteBindings::class,
         );

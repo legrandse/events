@@ -25,6 +25,9 @@ class TenantMiddleware
         $owner = null;
         if ($subdomain) {
             $owner = Owner::where('shortname', $subdomain)->first();
+            if (!$owner){
+            	$owner = '';
+            }
         }
 
         // 🔹 Étape 3 : si aucun owner valide, bloquer proprement

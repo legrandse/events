@@ -18,7 +18,7 @@ Route::middleware(['teams.permission'])->group(function () {
 
  	Route::get('/', [SubDomainController::class, 'index'])->middleware(['guest'])->name('subdomain');
     
-    Route::get('appredirect/{key}', function($key) {
+    Route::get('appredirect/{key}', function($domain,$key) {
         $user_phone = new \Propaganistas\LaravelPhone\PhoneNumber(Crypt::decryptString($key), 'BE');
         $user = \App\Models\User::where('phone', $user_phone->formatForMobileDialingInCountry('BE'))->first();
         if ($user) {

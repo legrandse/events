@@ -4,6 +4,9 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Models\Owner;
+use App\Models\OwnerUser;
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 
 
@@ -12,7 +15,7 @@ class SearchUser extends Component
 	use WithPagination;
 	
 	protected $paginationTheme = 'bootstrap';
-	public User $user_id;
+	//public User $user_id;
 	public $search = '' ;
 	public $showModal = '';
 
@@ -49,14 +52,21 @@ class SearchUser extends Component
     public function render()
 
     {
-    	
-		$users = User::where('name','like', '%'.$this->search.'%')
-					->orWhere('firstname', 'like', '%'.$this->search.'%')
-					->paginate(10);
+    	 	
+    	       
+        
+        $usersByOwner = Owner::find($owner->id);
+        				
+		$users = $usersByOwner->users()
+			    ->where(function ($query) {
+			        $query->where('name', 'like', '%' . $this->search . '%')
+			              ->orWhere('firstname', 'like', '%' . $this->search . '%');
+			    })
+			    ->paginate(10);
+			    
+		
 					
-        return view('livewire.search-user', [
-			          'users' => $users
-        ]);
+        return view('livewire.search-user',compact('users'));
 
     }
     

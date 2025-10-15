@@ -53,14 +53,14 @@
 							<div class="invalid-feedback">{{ $errors->first('attendee') }}</div>
 							@enderror
 			            </div>
-			            @hasrole(1)
+			            @can('event-edit')
 			            <div class="col-xs-12 col-sm-12 col-md-12">
 			                <div class="form-group">
 			                    <strong>{{ __('Publish event ?') }}:</strong>
 			                    <input type="checkbox" name="submited"  class="form-check-input" value="1" {{ old('submited',$event->submited) == 1 ? 'checked' : '' }}>
 			                </div>
 			            </div>
-			            @endhasrole
+			            @endcan
 			        <!--    <div class="col-xs-12 col-sm-12 col-md-12">
 			                <div class="form-group">
 			                    <strong>End:</strong>

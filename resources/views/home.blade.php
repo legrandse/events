@@ -30,14 +30,17 @@
 			        <div class="accordion-header " 
 
 			        @for($i=0; $i < count(auth()->user()->roles->pluck('id')); $i++)
-				        @if(auth()->user()->roles->pluck('id')[$i] != 1 && auth()->user()->roles->pluck('id')[$i] != 2 && (!in_array(auth()->user()->roles->pluck('name')[$i] , $event->attendee)  || $event->submited == 0 ))
+				     {{--   @if(auth()->user()->roles->pluck('id')[$i] != 1 && auth()->user()->roles->pluck('id')[$i] != 2 && (!in_array(auth()->user()->roles->pluck('name')[$i] , $event->attendee)  || $event->submited == 0 ))
 				        	hidden 
-				        @endif
+				        @endif --}}
+				    @if(auth()->user()->cannot('event-edit')  && (!in_array(auth()->user()->roles->pluck('name')[$i] , $event->attendee)  || $event->submited == 0 ))
+				        	hidden 
+				        @endif    
 				        
 			       @endfor
 			        id="heading">
 			            <div class="col lg-12 d-flex flex-row align-items-center justify-content-between">
-				            <button  class="accordion-button collapsed 
+				            <button  class="accordion-button collapsed mb-0
 				            				@can('event-list') 
 				                        							                        	
 												@if($totalShiftsByEvents[$event->id]['shifts_count'] > 0)
@@ -76,7 +79,7 @@
 				            
 				            <div class="accordion-body" id="test">
 				            @can('task-create')
-				             <div class="d-flex justify-content-between align-items-center mb-3">
+				             <div class="d-flex justify-content-between align-items-center mb-1">
 							    <!-- Add Task button -->
 							    <a href="{{ route('tasks.create', ['event_id' => $event->id]) }}" 
 							       class="btn btn-secondary">
@@ -87,7 +90,7 @@
 							        </i>
 							    </a>
 
-							    <h4 class="mb-0">
+							    <h4>
 							        {{ __('Required attendee :') }}
 							        <span class="badge text-bg-secondary">
 							          {{ $totalShiftsByEvents[$event->id]['confirmed_shifts_count'] }} / {{ $totalShiftsByEvents[$event->id]['shifts_count'] }}
@@ -107,7 +110,7 @@
 				                <div class="accordion-item" >
 				                    <h2 class="accordion-header " id="task{{$task->id}}Three">
 				                    
-				                        <button class="accordion-button collapsed 
+				                        <button class="accordion-button collapsed mb-0
 				                        	@can('task-create') 
 				                        	
 					                        	@if($totalShiftsByEvents[$event->id]['shifts_count'] > 0)
@@ -140,15 +143,9 @@
 					                </h2>
 				                    <div id="e{{ $task->id }}Three" class="accordion-collapse collapse @hasrole('Bénévole') show @endhasrole " aria-labelledby="task{{$task->id}}Three" data-bs-parent="#accordionTask{{ $event->id }}">
 				                        
-				                        <div class="accordion-body table-responsive @unlessrole('Admin|Comité') 
-				                        	{{--	@if( array_key_exists($task->id, $a)) 
-				                        			@if( !in_array(0 || null ,$a[$task->id]))  alert alert-success @endif
-				                        		@endif   
-				                        		@if( array_key_exists($task->id, $a)) 
-				                        			@if(in_array(0 || null ,$a[$task->id]) && $event->start <= \Carbon\Carbon::create(now())->addDays(12)->toDateString() ) alert alert-warning ) @endif
-				                        			@if(in_array(0 || null ,$a[$task->id]) && $event->start <= \Carbon\Carbon::create(now())->addDays(7)->toDateString() ) alert alert-danger ) @endif
-				                        		@endif
-				                        	--}}
+				                        <div class="accordion-body table-responsive 
+				                        	@cannot('event-edit') 
+				                        	
 					                        	@if($totalShiftsByEvents[$event->id]['shifts_count'] > 0)
 													    
 											        {{
@@ -159,7 +156,7 @@
 													    
 												@endif
 				                        		
-				                        	@endunlessrole ">
+				                        	@endcannot ">
 				                        @can('shift-create')
 				                        
 				                        <!-- Add Shift button -->
@@ -212,7 +209,7 @@
 														@endif
 													
 													@endhasrole
-													@hasanyrole('Comité|Admin')
+													@can('event-edit')
 														
 														<input type="hidden" class="form-control" readonly name="user_id[]" value="{{ $shift->user->id ?? '0'}}">
 														<input type="text" class="form-control" readonly  value="{{ $shift->user->firstname ?? ''}} {{ $shift->user->name ?? '?' }}">
@@ -229,7 +226,7 @@
 													</td>
 													<td><a href="{{route('shifts.edit',['shift'=>$shift->id])}}" class="btn btn-light" ><i class="fas fa-cog" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ __('Edit shift') }}"></i></a>
 													</td>
-													@endhasanyrole
+													@endcan
 												</tr>
 													@hasrole('Bénévole')
 													</form>
@@ -274,7 +271,7 @@
 								@endif <!-- task -->
 				                @endforeach <!-- task -->
 				                
-				                @hasanyrole('Comité|Admin')
+				                @can('event-edit')
 								<!-- Modal confirm sending shift -->
 					
 								<div class="modal fade" id="sendingShiftModal{{ $event->id }}" data-bs-backdrop="false"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -307,7 +304,7 @@
 								
 								
 								</form> <!-- massupdate form -->
-								@endhasanyrole
+								@endcan
 				                
 				                
 				               

@@ -212,10 +212,19 @@ class MultiStepForm extends Component
 		$phone = new PhoneNumber($values['phone'], $values['phone_country']);
 		$values['phone'] = $phone->formatForMobileDialingInCountry($values['phone_country']);
 		
-		
-		
+		$owner = app('currentOwner');
+		if ($owner) {
+	        setPermissionsTeamId($owner->id); //set current team according domain
+	    }
 	    $user = User::create($values);
 	    $user->assignRole('Bénévole');
+	    
+	    //create record in pivot table
+	    $ownerUser = OwnerUser::create([
+	    			'owner_id' => $owner->id,
+	    			'user_id' => $user->id
+	    
+	    			]);
 
 	    return $user;
 	}
@@ -236,7 +245,7 @@ class MultiStepForm extends Component
 	    $urlToDashboard = route('appredirect', ['key' => $key]);
 
 	    Mail::to($user->email)
-	        ->cc(config(mail.from.address))
+	        ->cc(config('mail.from.address'))
 	        ->send(new NewUserRegistration($user, $urlToDashboard));
 	}
 	

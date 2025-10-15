@@ -31,7 +31,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-    	//dd(session()->all());
+    	$owner = app('currentOwner');
+    	if ($owner) {
+	        setPermissionsTeamId($owner->id); //set current team according domain
+	    }
     	$archiveDate = Settings::find(1)->value ? : 1825;
 		$archiveSetDate = Carbon::now()->subDays($archiveDate)->toDateString();
     	
@@ -53,23 +56,24 @@ class HomeController extends Controller
 		")->get();
 		
 		$events = Event::where('start', '>=', $archiveSetDate)
-	    ->orderBy('start', 'ASC')
-	    ->with([
-	        'tasks' => function ($query) {
-	            $query->orderBy('position', 'ASC')
-	                  ->with([
-	                      'shifts' => function ($q) {
-	                          $q->orderByRaw("
-	                              CASE 
-	                                  WHEN start < '06:00:00' THEN 1 
-	                                  ELSE 0 
-	                              END, start
-	                          ");
-	                      }
-	                  ]);
-	        }
-	    ])
-	    ->get();
+					    ->where('owner_id',$owner->id)
+					    ->orderBy('start', 'ASC')
+					    ->with([
+					        'tasks' => function ($query) {
+					            $query->orderBy('position', 'ASC')
+					                  ->with([
+					                      'shifts' => function ($q) {
+					                          $q->orderByRaw("
+					                              CASE 
+					                                  WHEN start < '06:00:00' THEN 1 
+					                                  ELSE 0 
+					                              END, start
+					                          ");
+					                      }
+					                  ]);
+					        }
+					    ])
+					    ->get();
 		//dd($events);
 		
 		$totalShiftsByEvents = Event::withCount([

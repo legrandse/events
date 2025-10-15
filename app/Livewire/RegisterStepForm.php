@@ -180,7 +180,7 @@ class RegisterStepForm extends Component
 		$roles = ['Admin', 'Comité', 'Bénévole'];
 
 		foreach ($roles as $roleName) {
-		    $role = Role::firstOrCreate(['name' => $roleName]);
+		    $role = Role::create(['name' => $roleName]);
 
 		    if ($roleName === 'Comité') {
 		        // Permissions de 5 à 20

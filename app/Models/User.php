@@ -60,16 +60,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Shift::class);
     }
-    /*
-    public function task(): BelongsTo
-    {
-        return $this->belongsTo(Task::class);
-    }*/
+    
+   /* public function owners()
+	{
+	    return $this->belongsToMany(Owner::class, 'owner_user', 'user_id', 'owner_id')
+	                ->using(OwnerUser::class) // si tu veux utiliser ton modèle pivot personnalisé
+	                ->withTimestamps();
+	}
+    */
     public function owners()
 	{
-	    return $this->belongsToMany(Owner::class, 'owner_user');
+	    return $this->belongsToMany(Owner::class, 'owner_user', 'user_id', 'owner_id')
+	                ->using(OwnerUser::class)
+	                ->withTimestamps();
 	}
-    
     
     
 }

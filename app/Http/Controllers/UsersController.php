@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\OwnerUser;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use DB;
@@ -37,9 +38,13 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
+    	
+    	
+    	/*$owner = app('currentOwner');
         $users = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('users'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $usersByOwner = OwnerUser::where('owner_id', $owner->id)
+        				->orderBy('id','DESC')->paginate(5);*/
+        return view('users.index');
     }
 
     /**
@@ -149,7 +154,6 @@ class UsersController extends Controller
             'firstname' => 'nullable',
             'email' => 'required|email',
             'phone_country' => 'required_with:phone',
-            //'phone' => 'required|unique:users,phone,'.$id,
             'phone' => 'phone:LENIENT|unique:users,phone,'.$id,
             'password' => 'nullable',
             'roles' => 'nullable'
