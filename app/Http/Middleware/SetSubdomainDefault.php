@@ -47,6 +47,9 @@ class SetSubdomainDefault
 		    URL::defaults(['subdomain' => $subdomain]);
 
 		    $owner = Owner::where('shortname', $subdomain)->first();
+		   if (!$owner) {
+                abort(404, "Propriétaire non trouvé pour le sous-domaine '{$subdomain}'");
+            }
 		    app()->instance('currentOwner', $owner);
 
 		    $expectedHost = $subdomain . '.' . $domainRoot;
