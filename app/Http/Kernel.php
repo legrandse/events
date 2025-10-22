@@ -22,10 +22,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         
-        \App\Http\Middleware\SetSubdomainDefault::class,
         
-        \App\Http\Middleware\TenantMiddleware::class,
-        \App\Http\Middleware\VerifyUserOwner::class,
     ];
 
     /**
@@ -41,7 +38,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        	
+        	\App\Http\Middleware\SetSubdomainDefault::class,
         ],
 
         'api' => [
@@ -72,6 +69,10 @@ class Kernel extends HttpKernel
         'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
     	'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
     	'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+    	
+    	//'subdomain' => \App\Http\Middleware\SetSubdomainDefault::class,
+    	
+    	'verify.owner' => \App\Http\Middleware\VerifyUserOwner::class,
     	'teams.permission' => \App\Http\Middleware\TeamsPermission::class,
     ];
 }

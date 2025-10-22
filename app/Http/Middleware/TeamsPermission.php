@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use App\Models\Owner;
 class TeamsPermission
 {
     /**
@@ -15,10 +16,14 @@ class TeamsPermission
      */
     public function handle(Request $request, Closure $next): Response
     {
+    	$owner = app('currentOwner');
+    	
     	 if(!empty(auth()->user())){
             // session value set on login
-            setPermissionsTeamId(session('team_id'));
+         setPermissionsTeamId($owner->id);
         }
+     
+        
         // other custom ways to get team_id
         /*if(!empty(auth('api')->user())){
             // `getTeamIdFromToken()` example of custom method for getting the set team_id 

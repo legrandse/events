@@ -30,7 +30,7 @@ use Propaganistas\LaravelPhone\PhoneNumber;
     Route::get('/callback', [SocialController::class, 'facebookCallback']);
     Route::get('/google', [SocialController::class, 'redirectGoogle'])->name('auth.google');
     Route::get('/auth/google/callback', [SocialController::class, 'googleCallback']);
-
+Auth::routes();
 
 
 	

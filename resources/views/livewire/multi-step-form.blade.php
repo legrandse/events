@@ -50,7 +50,7 @@
 	                                    <a class="btn btn-link" href="{{ route('password.request') }}">
 	                                        {{ __('Forgot Your Password?') }}
 	                                    </a>
-	                        @endif
+	                        @endif 
 	                    	</div>
 	                    </div>
 	                    
@@ -146,22 +146,22 @@
      
          
                      
-                     <div class="row px-4 py-2 mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+            <div class="row px-4 py-2 mb-3">
+                <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" autofocus placeholder="{{__('Enter password')}}"  wire:model="password">
-							<span class="text-danger">@error('password'){{ $message }}@enderror</span>
-                        	</div>
-                    </div>
+                <div class="col-md-6">
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" autofocus placeholder="{{__('Enter password')}}"  wire:model="password">
+				<span class="text-danger">@error('password'){{ $message }}@enderror</span>
+            	</div>
+            </div>
 
-                        <div class="row mb-3" >
-                            <label for="password_confirmation" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+            <div class="row mb-3" >
+                <label for="password_confirmation" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="password_confirmation" type="password" class="form-control" placeholder="{{__('Confirm password')}}" wire:model="password_confirmation" >
-                            </div>
-                        </div>
+                <div class="col-md-6">
+                    <input id="password_confirmation" type="password" class="form-control" placeholder="{{__('Confirm password')}}" wire:model="password_confirmation" >
+                </div>
+            </div>
                      
                 
                      
@@ -219,7 +219,7 @@
 					<div class="px-4 py-2 mb-3 d-grid gap-2">
                          <button type="button" class="btn btn-warning" wire:click.prevent="openLogin">
                             @if ($currentStep == 1 && $showLogin == false)
-                            <i class="icon-fraternite"></i>{{  __(' Se connecter avec La Fraternité') }}
+                            <i class="icon-fraternite"></i>{{  __(' Se connecter avec ') }}{{ $owner->shortname}}
                             @else {{__('Back')}}
                             @endif
                           </button>

@@ -46,7 +46,7 @@ class ShiftsController extends Controller
 
     function __construct()
     {
-         $this->middleware('permission:shift-list|shift-create|shift-edit|shift-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:shift-list', ['only' => ['index','show']]);
          $this->middleware('permission:shift-create', ['only' => ['create','store']]);
          $this->middleware('permission:shift-edit', ['only' => ['edit','update','massupdate','singleupdate']]);
          $this->middleware('permission:shift-delete', ['only' => ['destroy']]);

@@ -54,7 +54,7 @@
 
 				<div class="row">
 					
-					<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="col-xs-6 col-sm-12 col-md-12">
 
 				        <div class="form-group">
 
@@ -66,7 +66,7 @@
 
 				    </div>
 					
-				    <div class="col-xs-12 col-sm-12 col-md-12">
+				    <div class="col-xs-6 col-sm-12 col-md-12">
 
 				        <div class="form-group">
 
@@ -78,7 +78,7 @@
 
 				    </div>
 				    
-				    <div class="col-xs-12 col-sm-12 col-md-12">
+				    <div class="col-xs-6 col-sm-12 col-md-12">
 
 				        <div class="form-group mb-3">
 
@@ -90,7 +90,7 @@
 
 				    </div>
 				    
-				    <div class="col-xs-12 col-sm-12 col-md-12">
+				    <div class="col-xs-6 col-sm-12 col-md-12">
 
 				        <div class="form-group row ">
 
@@ -102,13 +102,13 @@
 							-->
 							
 				            	<input type="text" class="form-control " name="phone" value="{{old('phone')}}"/>
-							</div>
+							
 
 				        </div>
 
 				    </div>
 
-				    <div class="col-xs-12 col-sm-12 col-md-12">
+				    <div class="col-xs-6 col-sm-12 col-md-12">
 
 				        <div class="form-group autoHidden">
 
@@ -120,7 +120,7 @@
 
 				    </div>
 
-				    <div class="col-xs-12 col-sm-12 col-md-12">
+				    <div class="col-xs-6 col-sm-12 col-md-12">
 
 				        <div class="form-group autoHidden">
 
@@ -132,7 +132,7 @@
 
 				    </div>
 
-				    <div class="col-xs-12 col-sm-12 col-md-12">
+				    <div class="col-xs-6 col-sm-12 col-md-12">
 
 				        <div class="form-group autoHidden">
 
@@ -144,7 +144,7 @@
 
 				    </div>
 
-				     <div class="col-xs-12 col-sm-12 col-md-12">
+				     <div class="col-xs-6 col-sm-12 col-md-12">
 
 				        <div class="form-group ">
 
@@ -159,7 +159,7 @@
 
 				    </div>
 					<div class="card-body">
-				    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+				    <div class="col-xs-6 col-sm-12 col-md-12 text-center">
 						<div class="form-group">
 				        	<button type="submit" class="btn btn-primary">{{__('Save')}}</button>
 						</div>

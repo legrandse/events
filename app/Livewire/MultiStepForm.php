@@ -21,7 +21,7 @@ class MultiStepForm extends Component
 	
 	use RegistersUsers;
 	
-	
+	public $owner = null;
 	public $phone_country;
     public $phone;
     public $remember = false;
@@ -44,6 +44,8 @@ class MultiStepForm extends Component
 	
 	public function mount(){
         $this->currentStep = 1;
+        $this->owner = app('currentOwner');
+       // dd($this->owner->id);
     }
 
 
@@ -146,17 +148,18 @@ class MultiStepForm extends Component
 	    $this->validateData();
 
 	    // 🔹 Étape 1 : récupérer le sous-domaine
-	    $host = request()->getHost(); // ex: team1.monapp.com
+	    /*$host = request()->getHost(); // ex: team1.monapp.com
 	    $parts = explode('.', $host);
 	    $subdomain = count($parts) > 2 ? $parts[0] : null;
-
+*/
 	    // 🔹 Étape 2 : trouver l’owner associé
-	    $owner = null;
-	    if ($subdomain) {
-	        $owner = Owner::where('shortname', $subdomain)->first();
+	   
+	    if ($this->owner) {
+	    	setPermissionsTeamId($this->owner->id); //set current team according domain
+	        $domain = Owner::where('shortname', $this->owner->shortname)->first();
 	    }
 
-	    if (!$owner) {
+	    if (!$domain) {
 	        session()->flash('message', 'Sous-domaine invalide ou non associé à un propriétaire.');
 	        return;
 	    }
@@ -164,20 +167,27 @@ class MultiStepForm extends Component
 	    // 🔹 Étape 3 : tenter la connexion
 	    if (Auth::attempt(['phone' => $this->phone, 'password' => $this->password], $this->remember)) {
 	        $user = Auth::user();
-
+			
+	    
+	    	
 	        // 🔹 Étape 4 : vérifier que le user appartient à l’owner
-	        $isLinked = OwnerUser::where('owner_id', $owner->id)
+	        $isLinked = OwnerUser::where('owner_id', $this->owner->id)
 	            ->where('user_id', $user->id)
 	            ->exists();
 
 	        if (!$isLinked) {
-	            Auth::logout();
+	            //Auth::logout();
+	            $link = OwnerUser::create([
+	            		'owner_id' => $this->owner->id,
+	            		'user_id' => $user->id
+	            		]);
+	            $user->assignRole('Bénévole');
 	            session()->flash('message', 'Cet utilisateur ne fait pas partie de cette équipe.');
-	            return;
+	            //return;
 	        }
 
 	        // 🔹 Étape 5 : enregistrer team_id dans la session
-	        session(['team_id' => $owner->id]);
+	        //session(['team_id' => $this->owner->id]);
 
 	        // Debug temporaire :
 	        // dd(session()->all());
@@ -212,16 +222,16 @@ class MultiStepForm extends Component
 		$phone = new PhoneNumber($values['phone'], $values['phone_country']);
 		$values['phone'] = $phone->formatForMobileDialingInCountry($values['phone_country']);
 		
-		$owner = app('currentOwner');
-		if ($owner) {
-	        setPermissionsTeamId($owner->id); //set current team according domain
+		
+		if ($this->owner) {
+	        setPermissionsTeamId($this->owner->id); //set current team according domain
 	    }
 	    $user = User::create($values);
 	    $user->assignRole('Bénévole');
 	    
 	    //create record in pivot table
 	    $ownerUser = OwnerUser::create([
-	    			'owner_id' => $owner->id,
+	    			'owner_id' => $this->owner->id,
 	    			'user_id' => $user->id
 	    
 	    			]);

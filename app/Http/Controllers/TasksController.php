@@ -18,7 +18,7 @@ class TasksController extends Controller
 
     function __construct()
     {
-         $this->middleware('permission:task-list|task-create|task-edit|task-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:task-list', ['only' => ['index','show']]);
          $this->middleware('permission:task-create', ['only' => ['create','store']]);
          $this->middleware('permission:task-edit', ['only' => ['edit','update']]);
          $this->middleware('permission:task-delete', ['only' => ['destroy']]);

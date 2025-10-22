@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Owner;
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SubDomainController extends Controller
@@ -15,19 +15,13 @@ class SubDomainController extends Controller
      */
     public function index(Request $request, $shortname)
     {
-    	if($shortname == 'www'){
-    		$owner = 'www';
-    		return view('welcome',compact('owner'));
-    	}
-    	else {
-    	$owner = Owner::where('shortname', $shortname)->first();
+    	
+        $owner = app('currentOwner');
+    	
+    	if ($owner) {	
+		    setPermissionsTeamId($owner->id); //set current team according domain
 		}
-		
-		
-        if (! $owner) {
-            throw new NotFoundHttpException("Ce sous-domaine n'existe pas.");
-        }
-        app()->instance('currentOwner', $owner);
+        
         
         return view('subDomain',compact('owner'));
     }

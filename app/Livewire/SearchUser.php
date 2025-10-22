@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Owner;
 use App\Models\OwnerUser;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
 use Livewire\WithPagination;
 
 
@@ -14,11 +16,21 @@ class SearchUser extends Component
 {
 	use WithPagination;
 	
+	
 	protected $paginationTheme = 'bootstrap';
 	//public User $user_id;
 	public $search = '' ;
 	public $showModal = '';
-
+	public $owner;
+	public bool $canDelete = false;
+ 	
+ 	public function mount()
+ 	{
+ 		$this->owner = app('currentOwner');
+    	$this->canDelete = Gate::allows('user-delete');
+    	
+		
+ 	}
  	
     
     /**
@@ -52,11 +64,9 @@ class SearchUser extends Component
     public function render()
 
     {
-    	 	
-    	       
-        
-        $usersByOwner = Owner::find($owner->id);
-        				
+    	
+        $usersByOwner = Owner::find($this->owner->id);
+        $canDelete = $this->canDelete.				
 		$users = $usersByOwner->users()
 			    ->where(function ($query) {
 			        $query->where('name', 'like', '%' . $this->search . '%')
@@ -66,7 +76,7 @@ class SearchUser extends Component
 			    
 		
 					
-        return view('livewire.search-user',compact('users'));
+        return view('livewire.search-user',compact('users','canDelete'));
 
     }
     

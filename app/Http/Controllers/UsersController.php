@@ -24,7 +24,7 @@ class UsersController extends Controller
      */
     function __construct()
     {
-         $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:user-list', ['only' => ['index','show']]);
          $this->middleware('permission:user-create', ['only' => ['create','store']]);
          $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
          $this->middleware('permission:user-delete', ['only' => ['destroy']]);
@@ -36,9 +36,13 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, $subdomain)
     {
+    	/*$owner = app('currentOwner');
     	
+    	if ($owner) {	
+		    setPermissionsTeamId($owner->id); //set current team according domain
+		}*/
     	
     	/*$owner = app('currentOwner');
         $users = User::orderBy('id','DESC')->paginate(5);
@@ -59,7 +63,7 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $subdomain)
     {
     	
     	if($request['single'] == 1)
@@ -100,6 +104,11 @@ class UsersController extends Controller
      */
     public function show($subdomain, string $id)
     {
+    	/*$owner = app('currentOwner');
+    	
+    	if ($owner) {	
+		    setPermissionsTeamId($owner->id); //set current team according domain
+		}*/
     	$user_id = Crypt::decryptString($id);
     	$user = User::find($user_id);
         return view('users.show',compact('user'));
@@ -110,6 +119,12 @@ class UsersController extends Controller
      */
     public function edit($subdomain, string $id)
     {
+    	/*$owner = app('currentOwner');
+    	
+    	if ($owner) {	
+		    setPermissionsTeamId($owner->id); //set current team according domain
+		}*/
+		//dd($owner);
     	$user_id = Crypt::decryptString($id);
     	//dd($user_id);
         $user = User::find($user_id);

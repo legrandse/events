@@ -19,7 +19,7 @@ class EventsController extends Controller
 
     function __construct()
     {
-         $this->middleware('permission:event-list|event-create|event-edit|event-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:event-list', ['only' => ['index','show']]);
          $this->middleware('permission:event-create', ['only' => ['create','store']]);
          $this->middleware('permission:event-edit', ['only' => ['edit','update']]);
          $this->middleware('permission:event-delete', ['only' => ['destroy']]);
@@ -43,6 +43,7 @@ class EventsController extends Controller
     public function create()
     {
     	$roles = Role::all();
+    	
         return view('events.create', compact('roles'));
     }
 
@@ -51,13 +52,13 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-    	
+    	$owner = app('currentOwner');
         $data = $request->validate([
             'name' => 'required',
             'start' => 'required',
            'attendee' => 'required',
         ]);
-    	
+    	$data['owner_id'] = $owner?->id;
     	
         Event::create($data);
     

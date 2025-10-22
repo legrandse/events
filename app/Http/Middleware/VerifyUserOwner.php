@@ -18,7 +18,8 @@ class VerifyUserOwner
     public function handle(Request $request, Closure $next): Response
     {
     	$user = Auth::user();
-        $owner = app('currentOwner'); // récupéré via ton multi-domaine
+        $owner = app()->bound('currentOwner') ? app('currentOwner') : null;
+//dd($user,$owner);
 
         // ⚙️ Si pas d'utilisateur connecté ou pas d'owner défini, on continue sans bloquer
         if (!$user || !$owner) {
@@ -29,6 +30,12 @@ class VerifyUserOwner
         $isLinked = OwnerUser::where('owner_id', $owner->id)
             ->where('user_id', $user->id)
             ->exists();
+	       
+	       if ($isLinked) {
+	       	
+		    setPermissionsTeamId($owner->id); //set current team according domain
+		        
+		    }
 
         if (!$isLinked) {
             Auth::logout();

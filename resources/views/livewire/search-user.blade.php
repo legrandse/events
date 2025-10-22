@@ -38,9 +38,9 @@
 							     		
 						     		</td>
 						     		<td>
-						     		@can('user-delete')
+						     		@if($canDelete)
 						     			<button type="button"  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" wire:click="showModals({{ $user->id }})"><i class="fas fa-trash"></i></button>
-							     	@endcan	
+							     	@endif	
 						     		</td>
 						     	</tr>
 						      		

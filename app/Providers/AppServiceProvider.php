@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\URL;
 use App\Http\Middleware\TeamsPermission;
-use App\Http\Middleware\TenantMiddleware;
-use App\Http\Middleware\SetSubdomainDefault;
 use App\Http\Middleware\VerifyUserOwner;
+use App\Http\Middleware\SetSubdomainDefault;
+
 
 use Illuminate\Foundation\Http\Kernel;
 use Illuminate\Routing\Middleware\SubstituteBindings;
@@ -37,16 +37,18 @@ class AppServiceProvider extends ServiceProvider
         	URL::forceScheme('https');
     	}
     	
+    	/*Livewire::addPersistentMiddleware([ 
+            TeamsPermission::class,    
+        ]);*/
+    	
     	/** @var Kernel $kernel */
         $kernel = app()->make(Kernel::class);
 
         // Ajoute ton middleware AVANT SubstituteBindings
         $kernel->addToMiddlewarePriorityBefore(
-        	TeamsPermission::class,
-        	SetSubdomainDefault::class,
-        	TenantMiddleware::class,
-        	//VerifyUserOwner::class,
-           
+        	SetSubDomainDefault::class,
+        	VerifyUserOwner::class,        	
+        	TeamsPermission::class,          
             SubstituteBindings::class,
         );
     	
