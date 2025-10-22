@@ -38,8 +38,15 @@ class SetSubdomainDefault
 
 		// 🚫 Cas spécial : sous-domaine "www"
 		if ($subdomain === 'www') {
-		    URL::forceRootUrl(config('app.url'));
-		    return $next($request);
+		    $rootUrl = config('app.url');
+
+		    // On s'assure que l'URL se termine bien par un "/"
+		    if (!str_ends_with($rootUrl, '/')) {
+		        $rootUrl .= '/';
+		    }
+
+		    // Redirection permanente vers le domaine racine
+		    return redirect()->to($rootUrl, 301);
 		}
 
 		// Cas 3 : on a un sous-domaine applicatif valide
