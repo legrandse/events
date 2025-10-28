@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Owner;
-use App\Models\Price;
+use App\Models\Poduct;
 use Illuminate\Http\Request;
 
 

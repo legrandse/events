@@ -49,12 +49,11 @@ Route::middleware(['verify.owner','teams.permission'])->group(function () {
 
     Route::middleware(['auth'])->group(function () {
     	Route::get('/home', [HomeController::class, 'index'])->name('home');
-    	
         Route::resource('users', UsersController::class);
         Route::resource('roles', RolesController::class);
         Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
         Route::resource('events', EventsController::class);
-        Route::resource('tasks', TasksController::class);
+		Route::resource('tasks', TasksController::class);
         Route::resource('shifts', ShiftsController::class);
         Route::patch('/home', [ShiftsController::class, 'massupdate'])->name('massupdate');
         Route::patch('/home/{shift}', [ShiftsController::class, 'updateShift'])->name('updateShift');

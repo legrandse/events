@@ -11,7 +11,7 @@ use Spatie\Permission\Models\Permission;
 use Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Price;
+use App\Models\Product;
 use App\Models\Owner;
 use App\Models\OwnerUser;
 use App\Models\User;
@@ -48,7 +48,7 @@ class RegisterStepForm extends Component
     
     public function mount(){
     	
-    	$this->prices = Price::all();
+    	$this->prices = Product::all();
     	
     	
     	
@@ -226,7 +226,7 @@ class RegisterStepForm extends Component
 	
     public function render()
     {
-    	$prices = Price::all();
+    	$prices = Product::all();
         return view('livewire.register-step-form', compact('prices'));
     }
 }

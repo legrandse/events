@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\URL;
 use App\Http\Middleware\TeamsPermission;
 use App\Http\Middleware\VerifyUserOwner;
 use App\Http\Middleware\SetSubdomainDefault;
+use App\Http\Middleware\CheckPlanLimits;
 
 
 use Illuminate\Foundation\Http\Kernel;
@@ -48,7 +49,8 @@ class AppServiceProvider extends ServiceProvider
         $kernel->addToMiddlewarePriorityBefore(
         	SetSubDomainDefault::class,
         	VerifyUserOwner::class,        	
-        	TeamsPermission::class,          
+        	TeamsPermission::class,  
+        	CheckPlanLimits::class,        
             SubstituteBindings::class,
         );
     	

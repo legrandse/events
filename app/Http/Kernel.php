@@ -69,10 +69,8 @@ class Kernel extends HttpKernel
         'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
     	'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
     	'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
-    	
-    	//'subdomain' => \App\Http\Middleware\SetSubdomainDefault::class,
-    	
     	'verify.owner' => \App\Http\Middleware\VerifyUserOwner::class,
     	'teams.permission' => \App\Http\Middleware\TeamsPermission::class,
+    	'check.plan' => \App\Http\Middleware\CheckPlanLimits::class,
     ];
 }

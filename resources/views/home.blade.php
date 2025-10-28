@@ -11,6 +11,12 @@
 			    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{__('Close')}}"></button>
 			</div>
 			@endif
+			@if ($message = Session::get('limit'))
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			    <strong>{{ $message }}</strong>
+			    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{__('Close')}}"></button>
+			</div>
+			@endif
 			<div class="card">
   				<div class="card-body text-bg-light p-3 mb-2">
 					<canvas id="myChart" ></canvas>
@@ -331,7 +337,7 @@
 
 	
 <script>
-	$(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){
+	$(".alert-dismissible").fadeTo(4000, 500).slideUp(500, function(){
     $(".alert-dismissible").slideUp(500);
 });
 	

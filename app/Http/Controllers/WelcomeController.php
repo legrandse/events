@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Price;
+use App\Models\Product;
 
 
 class WelcomeController extends Controller
@@ -16,7 +16,7 @@ class WelcomeController extends Controller
     public function index()
     {
     	
-		 $prices = Price::all();
+		 $prices = Product::all();
         return view('welcome',compact('prices'));
     }
 }

@@ -1,16 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div>
-	 @if (session()->has('message'))
-    	<div class="alert alert-danger">
-    		{{ session('message') }}
-		</div>
-     @endif
-</div>
 
-<div class="container-xs">
- 	
+
+<div class="container">
+ 		@if (session()->has('message'))
+	    	<div class="alert alert-danger text-center">
+	    		{{ session('message') }}
+			</div>
+     	@endif
  	
 	 	<div class="mt-3 py-2 mx-4 bg-white">
 		 	<p class="text-center p-3 ">
@@ -51,12 +49,6 @@
 		
 	
 </div>
-
-
-
-
-
-
 
 
 @endsection

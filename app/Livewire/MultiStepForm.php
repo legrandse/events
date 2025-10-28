@@ -12,6 +12,7 @@ use Hash;
 use Crypt;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\NewUserRegistration;
+use App\Mail\CheckPlanLimit;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Propaganistas\LaravelPhone\PhoneNumber;
@@ -45,7 +46,10 @@ class MultiStepForm extends Component
 	public function mount(){
         $this->currentStep = 1;
         $this->owner = app('currentOwner');
-       // dd($this->owner->id);
+       
+		
+       
+       
     }
 
 
@@ -90,6 +94,28 @@ class MultiStepForm extends Component
         }
         
         if($this->currentStep == 1){
+            $count = $this->owner->users()->count();
+        	$limit = $this->owner->product->max_volunteers;
+        	if (!is_null($limit) && $count >= $limit) {
+          		session()->flash('message' , 'Aie ! L\'organisation dépasse la limite de bénévoles selon le plan souscrit.');
+          		$admins = Role::where('name', 'Admin')
+					    ->where('guard_name', 'web')
+					    ->where('team_id', $this->owner->id)
+					    ->first()
+					    ?->users;
+          		//dd($admins);
+ 				foreach($admins as $admin)
+ 				{
+	 				Mail::to($admin->email)
+			        //->cc(config('mail.from.address'))
+			        ->send(new CheckPlanLimit($this->owner));
+				}
+        		return $this->redirect('/');
+                
+            
+        	}
+            
+            
             $this->validate([
                 'phone_country'=>'required_with:phone',
                 'phone'=>'phone:mobile|unique:users',
@@ -155,7 +181,7 @@ class MultiStepForm extends Component
 	    // 🔹 Étape 2 : trouver l’owner associé
 	   
 	    if ($this->owner) {
-	    	setPermissionsTeamId($this->owner->id); //set current team according domain
+	    	
 	        $domain = Owner::where('shortname', $this->owner->shortname)->first();
 	    }
 
