@@ -57,7 +57,11 @@
               <li class="scroll-to-section"><a href="#about">About</a></li>
               <li class="scroll-to-section"><a href="#pricing">Pricing</a></li>
               <li class="scroll-to-section"><a href="#newsletter">Newsletter</a></li>
-              <li><div class="gradient-button"><a id="modal_trigger" href="#modal"><i class="fa fa-sign-in-alt"></i> Sign In Now</a></div></li> 
+              <li><div class="gradient-button"><a href="#" 
+				     data-bs-toggle="modal" 
+				     data-bs-target="#registerModal" 
+				     ><i class="fa fa-sign-in-alt"></i> Sign In Now</a></div></li>
+              
             </ul>        
             <a class='menu-trigger'>
                 <span>Menu</span>
@@ -587,7 +591,7 @@
 	
 	<!-- Modal -->
 		<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-xl" role="document">
+		  <div class="modal-dialog {{-- modal-xl --}}" role="document">
 		    
 		    <div class="modal-content">
 		      <div class="modal-header">

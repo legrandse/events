@@ -5,6 +5,12 @@
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{__('Close')}}"></button>
 	</div>
 	@endif
+	@if ($message = Session::get('message'))
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<strong>{{ $message }}</strong>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{__('Close')}}"></button>
+	</div>
+	@endif
 	<div class="col-sm-12">		
 		<div class="card">
 			<div class="card-header bg-light py-3 d-flex flex-row align-items-center justify-content-between">
@@ -20,12 +26,12 @@
 					
 					<div class="col-auto">
 					  
-					      @if ($photo) 
-					        <img src="{{ $photo->temporaryUrl() }}">
-					    @endif
-						    <input class="form-control" type="file" wire:model="photo">
+					      @if ($logo) 
+					        <img src="{{ $logo->temporaryUrl() }}" class="img-thumbnail">
+					      @endif
+						    <input class="form-control" type="file" wire:model="logo">
 						 
-						    @error('photo') <span class="error">{{ $message }}</span> @enderror
+						  @error('logo') <span class="error">{{ $message }}</span> @enderror
 					</div>
 					<div class="col-auto">
 						    <button class="btn btn-primary" type="submit">Save photo</button>
@@ -35,15 +41,13 @@
 
 				<hr />
 				<form class="row g-3" wire:submit="saveArchiveValue()" > 
-					<div class="form-check form-switch col-auto">
-					
-					  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"  wire:click ="archiveButton" {{ $archiveToggle ? 'checked' : ''  }} >
-					  <label class="form-check-label" for="flexSwitchCheckDefault">Default archive days</label>
-					</div>
+					<div class="col-auto">
+						<label for="reset" class="form-label">Default archive days</label>
+						</div>
 					
 					<div class="col-auto">
 					
-					   <select wire:model="archiveValue"  class="form-select" aria-label="Default select example" {{ !$archiveToggle ? 'disabled' : ''  }} >
+					   <select wire:model="archiveValue"  class="form-select" aria-label="Default select example"  >
 						 
 						  @foreach($array as $key => $value)
 						  <option value="{{$key}}" wire:key="{{ $key }}" >{{$value}}</option>
@@ -53,7 +57,7 @@
 						</select>
 					</div>
 					<div class="col-auto">
-						 <button class="btn btn-primary"  type="submit" {{ !$archiveToggle ? 'disabled' : ''  }}>Save</button>
+						 <button class="btn btn-primary px-4"  type="submit" >Save</button>
 					
 					</div>
 				</form>
@@ -81,7 +85,7 @@
 				
 				
 				
-				
+				{{--	
 			<div class="mb-3">
 				  <label for="formFile" class="form-label">Default reminder 1 value </label>
 				  <input class="form-control" type="number" >
@@ -90,7 +94,7 @@
 				  <label for="formFile" class="form-label">Default reminder 2 value </label>
 				  <input class="form-control" type="number" >
 				</div>	
-	
+	--}}	
 			<!--	<div class="form-check form-switch">
 				  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
 				  <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>

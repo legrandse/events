@@ -12,14 +12,13 @@ use Illuminate\Queue\SerializesModels;
 class CheckPlanLimit extends Mailable
 {
     use Queueable, SerializesModels;
-	
-	public $owner; // ✅ Déclare la propriété
+
     /**
      * Create a new message instance.
      */
-    public function __construct($owner)
+    public function __construct(public $owner)
     {
-        $this->owner = $owner; // ✅ Sauvegarde la valeur
+        
     }
 
     /**
@@ -28,7 +27,7 @@ class CheckPlanLimit extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('Plan Limit'),
+            subject: 'Check Plan Limit',
         );
     }
 
@@ -39,9 +38,6 @@ class CheckPlanLimit extends Mailable
     {
         return new Content(
             markdown: 'emails.PlanLimit',
-            with: [
-            'owner' => $this->owner,
-            ]
         );
     }
 

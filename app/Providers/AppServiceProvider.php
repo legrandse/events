@@ -6,15 +6,16 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\URL;
+
 use App\Http\Middleware\TeamsPermission;
 use App\Http\Middleware\VerifyUserOwner;
 use App\Http\Middleware\SetSubdomainDefault;
 use App\Http\Middleware\CheckPlanLimits;
-
+use Illuminate\Routing\Middleware\SubstituteBindings;
 
 use Illuminate\Foundation\Http\Kernel;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use Livewire;
+
+//use Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +32,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+    	
+    	
+    	
         Schema::defaultStringLength(125);
         Paginator::useBootstrapFive();
         

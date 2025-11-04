@@ -22,7 +22,7 @@
 					<canvas id="myChart" ></canvas>
 				</div>
 			</div>
-			<div class="accordion " id="accordionExample">
+			<div class="accordion mt-2 " id="accordionExample">
 			    @can('event-create')
 			    <!-- Event button -->
 			    <a href="{{route('events.create')}}" class="btn btn-secondary" ><i class="fas fa-calendar-plus" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{__('Add event')}}"></i></a>

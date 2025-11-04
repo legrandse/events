@@ -17,18 +17,21 @@
   <file name="C:\laragon\www\events\app\Http\Controllers\SubDomainController.php"/>
   <file name="C:\laragon\www\events\resources\views\users\index.blade.php"/>
   <file name="C:\laragon\www\events\app\Http\Controllers\HomeController.php"/>
-  <file name="C:\laragon\www\events\resources\views\home.blade.php"/>
   <file name="C:\laragon\www\events\resources\views\events\edit.blade.php"/>
   <file name="C:\laragon\www\events\app\Http\Controllers\EventsController.php"/>
-  <file name="C:\laragon\www\events\app\Livewire\SearchUser.php"/>
-  <file name="C:\laragon\www\events\resources\views\livewire\search-user.blade.php"/>
   <file name="C:\laragon\www\events\routes\web.php"/>
   <file name="C:\laragon\www\events\app\Http\Controllers\CronTaskController.php"/>
-  <file name="C:\laragon\www\events\routes\subdomain.php"/>
   <file name="C:\laragon\www\events\app\Jobs\TaskReminder.php"/>
-  <file name="C:\laragon\www\events\app\Jobs\SendShifts.php"/>
-  <file name="C:\laragon\www\events\app\Http\Controllers\SocialController.php"/>
-  <file name="C:\laragon\www\events\resources\views\layouts\site.blade.php"/>
+  <file name="C:\laragon\www\events\app\Http\Controllers\UsersController.php"/>
+  <file name="C:\laragon\www\events\app\Livewire\MultiStepForm.php"/>
+  <file name="C:\laragon\www\events\app\Livewire\SearchUser.php"/>
+  <file name="C:\laragon\www\events\resources\views\livewire\multi-step-form.blade.php"/>
+  <file name="C:\laragon\www\events\resources\views\users\create.blade.php"/>
+  <file name="C:\laragon\www\events\resources\views\subDomain.blade.php"/>
+  <file name="C:\laragon\www\events\app\Mail\CheckPlanLimit.php"/>
+  <file name="C:\laragon\www\events\app\Mail\NewUserRegistration.php"/>
+  <file name="C:\laragon\www\events\app\Mail\UserShift.php"/>
+  <file name="C:\laragon\www\events\resources\views\emails\PlanLimit.php"/>
   <lastactivefile name=""/>
  </lastopfiles>
  <todoblock>
@@ -715,5 +718,5 @@
   </todofile>
  </todoblock>
  <dbgurls/>
- <lasttime value="1761145375"/>
+ <lasttime value="1761753656"/>
 </project>

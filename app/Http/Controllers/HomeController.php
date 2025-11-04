@@ -32,9 +32,7 @@ class HomeController extends Controller
     public function index()
     {
     	$owner = app('currentOwner');
-    	/*if ($owner) {
-	        setPermissionsTeamId($owner->id); //set current team according domain
-	    }*/
+    	
     	$archiveDate = Settings::find(1)->value ? : 1825;
 		$archiveSetDate = Carbon::now()->subDays($archiveDate)->toDateString();
     	

@@ -15,4 +15,11 @@ class Settings extends Model
         
         
     ];
+    
+    public function settings()
+	{
+	    return $this->belongsToMany(Setting::class, 'owner_settings')
+	                ->withPivot('value')
+	                ->withTimestamps();
+	}
 }

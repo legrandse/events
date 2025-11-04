@@ -13,6 +13,7 @@ class SettingsController extends Controller
          $this->middleware('permission:shift-create', ['only' => ['create','store']]);
          $this->middleware('permission:shift-edit', ['only' => ['edit','update','massupdate','singleupdate']]);
          $this->middleware('permission:shift-delete', ['only' => ['destroy']]);
+         $this->middleware('check.plan:settings',['only' => ['create','store']]);
     }
     
     

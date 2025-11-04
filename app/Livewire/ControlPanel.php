@@ -5,7 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Rule;
-use App\Models\Settings;
+use App\Models\OwnerSetting;
 use App\Models\Event;
 use App\Models\Task;
 use App\Models\Shift;
@@ -15,31 +15,35 @@ class ControlPanel extends Component
 	use WithFileUploads;
 	
 	#[Rule('image|max:1024')] // 1MB Max
-    public $photo;
+    public $logo;
 	
 	public $archiveToggle ;
 	public $archiveValue;
 	
 	public $events;
 	public $event_id;
-	
+	public $owner;
 	
 	public function mount() {
-		$this->archiveToggle = Settings::find(2)->value;
-        $this->archiveValue = Settings::find(1)->value;
+		$this->owner = app('currentOwner');
+		//$this->archiveToggle = Settings::find(2)->value;
+        $this->archiveValue = OwnerSetting::where('owner_id',$this->owner->id)
+        									->where('setting_id',1)
+        									->first()->value;
 		
-		$this->events = Event::all();
+		
+		$this->events = Event::where('owner_id',$this->owner->id)->get();
 	}
 	
 	
 	
-	public function archiveButton()
+	/*public function archiveButton()
 	{
-		 $this->archiveToggle = !$this->archiveToggle;
+		$this->archiveToggle = !$this->archiveToggle;
         Settings::find(2)->update(['value' => $this->archiveToggle]);
 		$this->archiveValue = !$this->archiveToggle ? 0 : $this->archiveValue;
 				
-	}
+	}*/
 	
 	public function validateData(){
 
@@ -52,8 +56,9 @@ class ControlPanel extends Component
 	public function saveArchiveValue() {
 		$this->validateData();
 		
-		$settings = Settings::find(1);
-        $settings->value = $this->archiveToggle ? $this->archiveValue : 0;
+		$settings = OwnerSetting::where('owner_id',$this->owner->id)
+        						->where('setting_id',1)->first();
+        $settings->value = $this->archiveValue;
         $settings->save();
 			
 		session()->flash('success', 'Operation success.');
@@ -66,7 +71,7 @@ class ControlPanel extends Component
 		$shift = Shift::where('event_id',$this->event_id)
 				->update([
 				'user_id' => null,
-				'is_confirmed'=>0
+				'is_confirmed'=> 0
 				]);
 				
 		session()->flash('success', 'Event reset.');
@@ -129,6 +134,14 @@ class ControlPanel extends Component
 }*/
 public function duplicateEvent($eventId)
 	{
+		$count = $this->owner->users()->count();
+        $limit = $this->owner->product->max_events;
+        	if (!is_null($limit) && $count >= $limit) {
+          		session()->flash('message' , 'Vous avez atteint la limite de ' . $limit . ' événement(s) pour votre plan.');
+          		return $this->redirect('/settings');	
+			}
+		
+		
 	    $originalEvent = Event::with('tasks.shifts')->findOrFail($eventId);
 	   // dd($originalEvent);
 	    
@@ -171,16 +184,22 @@ public function duplicateEvent($eventId)
                 $newShift->save();
             }
         }
-	    session()->flash('success', 'Event reset.');
+	    session()->flash('success', 'Event resetted.');
 	}
 	
 	
 	
 	//store image
-	    public function save()
+	public function save()
     {
-        $this->photo->storeAs('public/logo/logo.jpg');
-        $this->redirect('/settings'); 
+    
+        // Sauvegarder avec un nom logo.jpg/png)
+	    $ext = $this->logo->getClientOriginalExtension();
+	    $this->logo->storeAs('public/'.$this->owner->id, "logo.{$ext}");
+
+	    $this->reset('logo');
+          
+        $this->redirect('/settings');   
         
 		session()->flash('success', 'Success.');
     }

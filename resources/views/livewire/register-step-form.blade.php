@@ -154,7 +154,7 @@
 					        @foreach($prices as $price)
 					       
 					            <option value="{{ $price->id }}">
-					                {{ $price->product }} - {{ $price->amount }}
+					                {{ $price->name }} - {{ $price->price }}
 					            </option>
 					        @endforeach
 					    </select>

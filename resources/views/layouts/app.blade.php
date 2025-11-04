@@ -44,7 +44,7 @@
             <div class="container">
                 <div class="py-1 d-flex flex-row align-items-center justify-content-between">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                   <img id="logo" src="{{ asset('storage/logo/logo.jpg') }}" width="20%" />
+                   <img id="logo" src="{{ $img[0] ?? '' }}" width="15%" alt="Votre logo"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

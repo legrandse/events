@@ -5,12 +5,19 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 use Hash;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
+
+use App\Mail\OwnerRegistered;
+
 use App\Models\Product;
 use App\Models\Owner;
 use App\Models\OwnerUser;
@@ -50,13 +57,8 @@ class RegisterStepForm extends Component
     	
     	$this->prices = Product::all();
     	
-    	
-    	
-    }
+     }
     
-    
-    
- 
     public function next(){
      
      $this->validateData(); 
@@ -79,8 +81,7 @@ class RegisterStepForm extends Component
    	#[On('setPlan')] 
 	public function setPlan($data)
     {
-    	
-        $this->plan = $data;
+         $this->plan = $data;
     }   
     
     
@@ -101,14 +102,14 @@ class RegisterStepForm extends Component
                 'firstname'=>'required',
                 'name'=>'required',
                 'phone_country'=>'required_with:phone',
-                'phone'=>'phone:mobile|unique:users',
-                
+                //'phone'=>'phone:mobile|unique:users',
+                'phone'=>'phone:mobile',
             ]);
         }
         if($this->currentStep == 3){
               $this->validate([
                  'organisation' => 'required',
-                 'shortname' => 'required',
+                 'shortname' => 'required|unique:owners,shortname',
                  'address' => 'required',
                  'postcode' => 'required',
                  'place' => 'required',
@@ -204,22 +205,46 @@ class RegisterStepForm extends Component
 		        $role->syncPermissions($permissions);
 		    }
 		}
-       
-	    $user = User::create($userValues);
-	    $user->assignRole('Admin');
+       	
+       	//check if user exist
+       	$existingUser = User::where('email',$userValues['email'])
+       						->orWhere('phone',$userValues['phone'])
+       						->first();
+       	
+       	$user = $existingUser ?? User::create($userValues);
+		$user->assignRole('Admin');
+
+		// Créer l’enregistrement dans la table pivot
+		OwnerUser::create([
+		    'owner_id' => $owner->id,
+		    'user_id' => $user->id,
+		]);
+
+		// Envoyer le mail
+		Mail::to($user->email)
+		    //->cc(config('mail.from.address'))
+		    ->send(new OwnerRegistered($owner));
+	    	
 	    
-	    //create record in pivot table
-	    $ownerUser = OwnerUser::create([
-	    			'owner_id' => $owner->id,
-	    			'user_id' => $user->id
 	    
-	    			]);
+	    
+	    
+	    
+		//créer dossier Image
+		Storage::makeDirectory('public/'.$owner->id);
+		
+		Auth::loginUsingId($user->id);
+		// Régénère la session et le token CSRF
+	    session()->regenerate();  // Cela va régénérer la session
+	    session()->regenerateToken(); // Et créer un nouveau token CSRF
 		
 		session()->flash('status', 'User created successfully.');
  
         $this->dispatch('registered', url: 'http://'.$owner->shortname. '.' .parse_url(config('app.url'), PHP_URL_HOST));
 
-		Auth::loginUsingId($user->id);		
+		
+		
+			
 	}
 	
 	
